@@ -1,3 +1,5 @@
+import type React from "react";
+
 export type ProjectStatus = "in-progress" | "completed" | "notStarted";
 export interface Project {
     _id: string
@@ -6,6 +8,7 @@ export interface Project {
     description: string
     status: ProjectStatus
     user: string
+
 }
 
 export interface CreateProjectDTO {
@@ -13,4 +16,21 @@ export interface CreateProjectDTO {
     description: string;
     status: ProjectStatus;
     dueDate?: string;
+}
+export interface createProjectProps {
+    projects: Project[]
+    setProjects: React.Dispatch<React.SetStateAction<Project[]>>
+}
+export interface ProjectListProps {
+    projects: Project[]
+}
+export interface ProjectItem {
+    project: Project
+}
+export interface TaskItemProps {
+    Project: Project;
+    onStatusChange: (projectId: string, newStatus: ProjectStatus) => void;
+    onEdit: (projectId: string, newData: CreateProjectDTO) => void
+    onDelete: (projectid: string) => void;
+
 }
