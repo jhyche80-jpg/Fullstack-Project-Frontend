@@ -1,7 +1,5 @@
 import { useEffect } from "react"
-
 export type Status = 'pending' | 'in-progress' | 'completed'
-export type TaskCat = 'school' | 'work' | 'personal' | 'fitness' | 'finance' | 'other'
 export type TaskPrio = 'low' | 'medium' | 'high'
 
 export interface Register {
@@ -40,14 +38,22 @@ export interface Taskcount {
 
 }
 export interface Task {
-    id: string;
+    _id: string;
     title: string;
+    dueDate: string;
+    user: string
+    description: string;
+    project: string
+    status: Status;
+    priority: TaskPrio;
+
+}
+export interface CreateTaskDTO {
+    title: string;
+    dueDate: string;
     description: string;
     status: Status;
     priority: TaskPrio;
-    dueDate: string;
-    time: string;
-    category: TaskCat
 }
 
 export interface TaskListProps {
@@ -69,13 +75,13 @@ export interface TaskFilterProps {
     onFilterChange: (filters: {
         status?: Status;
         priority?: TaskPrio;
-        category: TaskCat
+        dueDate?: string
     }) => void;
 }
 export type Filters = {
     status?: Status;
     priority?: TaskPrio;
-    category?: TaskCat;
+    dueDate?: string
     search?: string;
 }
 export function useSave<T>(key: string, value: T) {

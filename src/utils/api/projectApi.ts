@@ -1,5 +1,6 @@
 import { api } from "../../services/axios"
 import type { CreateProjectDTO, Project } from "../../types/projectTypes"
+import type { Task } from "../../types/types"
 
 export async function getProjects(): Promise<Project[]> {
     try {
@@ -11,7 +12,6 @@ export async function getProjects(): Promise<Project[]> {
         }
         throw error
     }
-
 
 }
 export async function createProject(formData: CreateProjectDTO): Promise<Project> {
@@ -43,3 +43,5 @@ export async function updateProject(id: string, formData: Partial<CreateProjectD
         throw error
     }
 }
+
+
