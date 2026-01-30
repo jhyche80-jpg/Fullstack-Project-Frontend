@@ -1,4 +1,4 @@
-import React from 'react'
+
 import type { Project, ProjectListProps } from '../types/projectTypes'
 import ProjectItem from './projectitem'
 

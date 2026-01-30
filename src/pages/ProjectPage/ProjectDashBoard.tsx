@@ -8,9 +8,11 @@ import ProjectList from '../../components/ProjectList'
 // add Projects to the list 
 // Rerender the list!
 export default function ProjectDashBoard() {
-    const [projects, setProjects] = useState<Project[]>()
+    const [projects, setProjects] = useState<Project[]>([])
     useEffect(() => {
-        getProjects().then(data => setProjects(data))
+        getProjects()
+            .then(data => setProjects(data))
+            .catch(error => console.error(error))
     }, [])
     return (
         <div>

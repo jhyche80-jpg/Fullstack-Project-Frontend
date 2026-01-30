@@ -10,11 +10,13 @@ export default function CreateProject({ projects, setProjects }: createProjectPr
         dueDate: ''
 
     })
-    function handleChange(event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
-        setFormData({
-            ...formData,
-            [event?.target.name]: event?.target.value
-        })
+    function handleChange(event: ChangeEvent<HTMLInputElement
+        | HTMLSelectElement | HTMLTextAreaElement>) {
+        const { name, value } = event.target
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value
+        }))
 
     }
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -24,18 +26,18 @@ export default function CreateProject({ projects, setProjects }: createProjectPr
             setProjects((prev) => [...prev, data])
         } catch (error) {
             console.error("Error creating project:", error)
-
         }
 
     }
     return (
         <form onSubmit={handleSubmit}>
-            <input type="text"
+            <input
+                type="text"
                 placeholder='Enter a title'
                 value={formData.title}
                 onChange={handleChange}
                 name='title' />
-            <input type="text"
+            <textarea
                 placeholder='Enter description'
                 value={formData.description}
                 onChange={handleChange}

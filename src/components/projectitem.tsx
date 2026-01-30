@@ -1,4 +1,4 @@
-import React, { useState, type ChangeEvent } from 'react'
+import { useState, type ChangeEvent } from 'react'
 import { updateProject, deleteProject } from '../utils/api/projectApi'
 import { type Project, type ProjectItem } from '../types/projectTypes'
 export default function ProjectItem({ project }: ProjectItem) {
