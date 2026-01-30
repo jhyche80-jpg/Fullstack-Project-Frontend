@@ -1,15 +1,14 @@
 import { api } from "../../services/axios"
 import type { CreateProjectDTO, Project } from "../../types/projectTypes"
-import type { Task } from "../../types/types"
+
 
 export async function getProjects(): Promise<Project[]> {
     try {
         const { data } = await api.get<Project[]>('/projects')
         return data
     } catch (error) {
-        if (error instanceof Error) {
-            console.error('failed to fetch Projects', error.message)
-        }
+
+        console.error('failed to fetch Projects', error)
         throw error
     }
 
