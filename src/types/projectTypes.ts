@@ -23,9 +23,14 @@ export interface createProjectProps {
 }
 export interface ProjectListProps {
     projects: Project[]
+    onChange: (projectId: string, updatedProject: Project) => void;
+    onDelete: (projectId: string) => void;
 }
 export interface ProjectItem {
     project: Project
+    onChange: (projectId: string, updatedProject: Project) => void;
+    onDelete: (projectId: string) => void;
+
 }
 export interface TaskItemProps {
     Project: Project;

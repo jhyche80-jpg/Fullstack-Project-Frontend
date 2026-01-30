@@ -2,7 +2,7 @@ import React, { useState, type ChangeEvent } from 'react'
 import type { CreateProjectDTO, createProjectProps } from '../types/projectTypes'
 import { createProject } from '../utils/api/projectApi'
 
-export default function CreateProject({ projects, setProjects }: createProjectProps) {
+export default function CreateProject({ setProjects }: createProjectProps) {
     const [formData, setFormData] = useState<CreateProjectDTO>({
         title: '',
         description: '',
