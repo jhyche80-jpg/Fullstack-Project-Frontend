@@ -2,19 +2,7 @@ import { useEffect } from "react"
 export type Status = 'pending' | 'in-progress' | 'completed'
 export type TaskPrio = 'low' | 'medium' | 'high'
 
-export interface Register {
-    username: string
-    email: string
-    password: string
-    birthdate: Date
-    firstName: string
-    lastName: string
-}
 
-export interface Login {
-    username: string
-    password: string
-}
 export interface Dashboard {
     pending: number;
     running: number;
