@@ -55,11 +55,39 @@ This will be the front end code for this project.
   - API Integration: Fetch data from your backend API to dynamically render content. All authenticated requests must include the user’s JWT.
   - User Experience: The application should provide clear feedback for loading and error states.
   - Responsive Design: The UI must be fully responsive and usable on desktop, tablet, and mobile screen sizes.
-
-
 ### Questions and Answers
- 
+ ### input/Output 
 ---
+1. Login-logout-Register pagees
+
+
+| Action       | Input (body/query)                         | Output (response) |
+|--------------|------|-------------------------------------|--------------------------------------------|
+| Register     |`{ username, email, password, birthDate }`  | Return to login page                     |
+| Login        |`{ username, password }`                    | taken to the main dashboard page         |
+| Logout       | Button click                               | You are taken to the login page          |
+
+2. Projects 
+
+
+| Action         | Input (body/query)                           | Output (response)                                                                  |
+|----------------|--------|-------------------------------------|------------------------------------------------------------------------------------|
+| Create         | `{ title, due-date  and status }`            | A message saying that the project has been created : duration 5 sseconds           | 
+| Delete         | button click                                 | `{message: "Project deleted sussessfully!"}` : duration 5 seconds then disappears  |
+| Veiw Projects  | N/A                                          | An array of projects                                                               |
+| View Project   | click on the specific project                | navigation to the project (view task)                                              | 
+| Update Project | any change  or edit                          | Updated Project information                                                        |
+
+3. Tasks 
+
+| Action       | Input (body/query)                            | Output (response)                                                            |
+|--------------|-----------------------------------------------|------------------------------------------------------------------------------|
+| Create       | title due date status and also the category   | a message that shows "Task created sucessfully!" or "problem creating task!" | 
+| Delete       | button  to delete the task                    | `{message: 'Task deleted' }` or `{message: problem deletinng task} `         |
+| Veiw Tasks   | A list of task with a delete and edit buttion | `{taskId, title of task, and task due date of task }`                        |
+| Update Task  | change or edit of the task                    |  Updated Task information                                                    |
+
+
 
 ## Step by Step Plan
 1.  Initalize project 
@@ -135,7 +163,9 @@ Include lessons about problem solving and debugging.
 - JavaScript 
 - Browser Router 
 - Chart.js 
-### Websites Used 
+
+### Websites Used
+Example:  
 - MDN  
 - Stack Overflow  
 - W3Schools  
