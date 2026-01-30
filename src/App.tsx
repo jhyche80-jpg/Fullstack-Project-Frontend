@@ -1,33 +1,25 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { Route, Routes } from 'react-router-dom'
 import './App.css'
-
+import ProjectDashBoard from './pages/ProjectPage/ProjectDashBoard'
+import ErrorPage from './pages/ErrorPage/ErrorPage'
+import TaskDashBoard from './pages/taskPage/TaskDashBoard'
+import Login from './pages/Authorize/Login'
+import Register from './pages/Authorize/Register'
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Routes>
+        <Route path='/' element={<Login />} />
+        {/* If you cannot login register  */}
+        <Route path='/register' element={<Register />} />
+        {/*Once Logged in navigate to this page */}
+        <Route path='/projects' element={<ProjectDashBoard />} />
+        {/* clicking a specific task will cause you to navigate to that tasks for the projects */}
+        <Route path='projects/:projectId/tasks' element={<TaskDashBoard />} />
+        {/* if what i am trying to do is a no no .. */}
+        <Route path='*' element={<ErrorPage />} />
+      </Routes >
     </>
   )
 }
