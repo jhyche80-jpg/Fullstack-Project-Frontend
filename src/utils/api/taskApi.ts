@@ -1,11 +1,10 @@
 import type { CreateTaskDTO, Task } from "../../types/types"
 import { api } from "../../services/axios"
 
-
+const token = await localStorage.getItem('token')
 
 export async function getTask(projectId: string): Promise<Task[]> {
     try {
-        const token = await localStorage.getItem('token')
         if (!token) throw new Error("no bearer token")
         const { data } = await api.get<Task[]>(`/projects/${projectId}/tasks`, {
             headers: {
@@ -20,7 +19,7 @@ export async function getTask(projectId: string): Promise<Task[]> {
 }
 export async function createTask(projectId: string, taskData: CreateTaskDTO): Promise<Task> {
     try {
-        const token = await localStorage.getItem('token')
+
         if (!token) throw new Error("no bearer token")
         const { data } = await api.post<Task>(`/projects/${projectId}/tasks`, taskData, {
             headers: {
@@ -35,7 +34,7 @@ export async function createTask(projectId: string, taskData: CreateTaskDTO): Pr
 }
 export async function deleteTask(projectId: string, taskId: string): Promise<{ message: string }> {
     try {
-        const token = await localStorage.getItem('token')
+
         if (!token) throw new Error("no bearer token")
         const { data } = await api.delete<{ message: string }>(` /projects/${projectId}/tasks/${taskId}`, {
             headers: {
@@ -48,9 +47,10 @@ export async function deleteTask(projectId: string, taskId: string): Promise<{ m
         throw error
     }
 }
+
 export async function updateTask(projectId: string, taskId: string, taskData: Partial<CreateTaskDTO>): Promise<Task> {
     try {
-        const token = await localStorage.getItem('token')
+
         if (!token) throw new Error("no bearer token")
         const { data } = await api.put<Task>(`/projects/${projectId}/tasks/${taskId}`, taskData, {
             headers: {

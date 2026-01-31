@@ -3,10 +3,6 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import { type Login } from '../../types/userTypes'
 import { userLogin } from '../../utils/api/userApi'
 
-// Accept username
-// Accept Password
-// compare password to password on file
-// if the passwords match then navigate to the next page or show error message 
 export default function Login() {
     const [loginInfo, setLoginInfo] = useState<Login>({
         username: '',
@@ -14,42 +10,59 @@ export default function Login() {
     })
     const [error, setError] = useState('')
     const navigate = useNavigate()
-    async function HandleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
-        e.preventDefault()
-        try {
-            const response = await userLogin(loginInfo)
-            console.log(response)
-            navigate('/projects')
-            const { token, user } = await userLogin(loginInfo);
-            localStorage.setItem('token', JSON.stringify(token));
-            localStorage.setItem('user', JSON.stringify(user));
 
+    async function HandleSubmit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault()
+
+        try {
+            const { token, user } = await userLogin(loginInfo)
+            if (!token) {
+                setError('Login failed: no token returned')
+                return
+            }
+
+            localStorage.setItem('token', token)
+            localStorage.setItem('user', JSON.stringify(user))
+
+            navigate('/projects')
         } catch (error: any) {
             const message =
-                error.response?.data?.message || error.message || 'Login failed';
-            setError(message);
+                error.response?.data?.message ||
+                error.message ||
+                'Login failed'
+            setError(message)
         }
-
     }
 
     return (
         <form onSubmit={HandleSubmit}>
             {error && <p style={{ color: 'red' }}>{error}</p>}
-            <label htmlFor="user">Username:</label>
+
+            <label>Username:</label>
             <input
                 type="text"
-                name="user"
                 value={loginInfo.username}
-                onChange={(e) => setLoginInfo({ ...loginInfo, username: e.target.value })} placeholder='Username:' />
-            <label htmlFor="">Password:</label>
+                onChange={(e) =>
+                    setLoginInfo({ ...loginInfo, username: e.target.value })
+                }
+                placeholder="Username"
+            />
+
+            <label>Password:</label>
             <input
                 type="password"
-                placeholder='Password'
                 value={loginInfo.password}
-                onChange={(e) => setLoginInfo({ ...loginInfo, password: e.target.value })} />
-            <button type='submit'>Login</button>
-            <p>No account ? No problem! Register <NavLink to={'/register'}>Here</NavLink></p>
+                onChange={(e) =>
+                    setLoginInfo({ ...loginInfo, password: e.target.value })
+                }
+                placeholder="Password"
+            />
 
-        </form >
+            <button type="submit">Login</button>
+
+            <p>
+                No account? Register <NavLink to="/register">Here</NavLink>
+            </p>
+        </form>
     )
 }

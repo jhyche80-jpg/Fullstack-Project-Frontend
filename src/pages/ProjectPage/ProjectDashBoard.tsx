@@ -3,43 +3,39 @@ import type { Project } from '../../types/projectTypes'
 import { deleteProject, getProjects, updateProject } from '../../utils/api/projectApi'
 import CreateProject from '../../components/CreateProject'
 import ProjectList from '../../components/ProjectList'
-// Show a chart of data 
-// show a list of projects 
-// add Projects to the list 
-// Rerender the list!
+
 export default function ProjectDashBoard() {
     const [projects, setProjects] = useState<Project[]>([])
+
     useEffect(() => {
-        async function FetchProjects() {
-
+        async function fetchProjects() {
             try {
-                const token = await localStorage.getItem('token');
-                const userString = await localStorage.getItem("user")
-                if (!userString) return
-                if (!token) return
-                const user = JSON.parse(userString)
-
-                const data = await getProjects(token, user.id)
+                const data = await getProjects()
                 setProjects(data)
             } catch (error) {
-                console.error(error)
+                console.error("Failed to fetch projects:", error)
             }
+        }
+        fetchProjects()
+    }, [])
 
-        } FetchProjects(), []
-    })
     async function onDelete(projectId: string) {
         try {
             await deleteProject(projectId)
             setProjects(prev => prev.filter(project => project._id !== projectId))
         } catch (error) {
-            console.error(error)
+            console.error("Failed to delete project:", error)
         }
     }
+
     async function onChange(projectId: string, formData: Project) {
         try {
-            await updateProject(projectId, formData)
+            const updated = await updateProject(projectId, formData)
+            setProjects(prev =>
+                prev.map(p => (p._id === projectId ? updated : p))
+            )
         } catch (error) {
-            console.error(error)
+            console.error("Failed to update project:", error)
         }
     }
 
