@@ -143,13 +143,16 @@ Explain how you solved each problem.
 
 1.  I have the correct authentication middleware however I havent fully authenticated it . That being said I had to temporarily save the token to the computers local storage and then use it in the axios.ts in order to make it see the user token better . after that I changed the code to refelct that plan and it worked . I also changed some of the work in the back end to fix the code and simplify it more. 
 2.  In the post I had form data rendering as the data shared but since i was already calling project andd already drilled the project down , I decided to move the project  param in place and call the information directly from the project param. 
-3.  I changed the local host to 5000 i read online that sometimes the port can be alittle weird.
+3.  I changed the local host to 5000 I read online that sometimes the port can be alittle weird.
 
 ---
 
 ## Reflection
-Reflect on what you learned, what worked well, and what you would do differently.  
-Include lessons about problem solving and debugging.
+Reflecting on this project, I’ve learned a lot about problem-solving and debugging, especially when working with TypeScript. One lesson in particular that I’m still learning is how TypeScript’s strict typing influences code design. Changing types in my api or types file, could potentially cause issues elsewhere in the code, but this process is teaching me how to think more carefully about coding with types. I see a lot of value in this approach, as it encourages more deliberate and thoughtful programming.
+
+By the time I reached the part where I was implementing tasks, I realized I needed to restructure the code anyway because of the new logic I added in the project api. I decided to make the necessary changes before moving on to tasks. Next, I focused on creating the task handler and the task display. My plan is to design it similarly to the project dashboard and also track tasks, showing the number of completed and incomplete tasks in a separate component.
+
+Overall, this experience reinforced the importance of planning, understanding type systems, and thinking ahead about how changes in one part of the code can affect other parts.
 
 ---
 

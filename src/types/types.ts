@@ -44,6 +44,11 @@ export interface CreateTaskDTO {
     priority: TaskPrio;
 }
 
+
+export interface CreateTaskProps {
+    tasks: Task[]
+    setTasks: React.Dispatch<React.SetStateAction<Task[]>>
+}
 export interface TaskListProps {
     tasks: Task[];
     onStatusChange: (taskId: string, newStatus: Status) => void;

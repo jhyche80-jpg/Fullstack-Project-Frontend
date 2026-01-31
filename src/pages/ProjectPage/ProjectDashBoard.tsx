@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import type { Project } from '../../types/projectTypes'
 import { deleteProject, getProjects, updateProject } from '../../utils/api/projectApi'
-import CreateProject from '../../components/CreateProject'
-import ProjectList from '../../components/ProjectList'
+import CreateProject from '../../components/project/CreateProject'
+import ProjectList from '../../components/project/ProjectList'
 
 export default function ProjectDashBoard() {
     const [projects, setProjects] = useState<Project[]>([])

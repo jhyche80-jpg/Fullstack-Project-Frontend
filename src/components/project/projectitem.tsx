@@ -1,5 +1,7 @@
 import { useState } from 'react'
-import { type Project, type ProjectItem, type ProjectStatus } from '../types/projectTypes'
+
+import { type Project, type ProjectItem, type ProjectStatus } from '../../types/projectTypes'
+import { useNavigate } from 'react-router-dom'
 export default function ProjectItem({ project, onChange, onDelete }: ProjectItem) {
     const [formData, setFormData] = useState<Project>({
         _id: project._id,
@@ -9,6 +11,10 @@ export default function ProjectItem({ project, onChange, onDelete }: ProjectItem
         dueDate: project.dueDate,
         user: project.user
     })
+    const navigate = useNavigate()
+    const handleNavogate = () => {
+        navigate(`/projects/${project._id}/tasks`)
+    }
     const [editing, setEditing] = useState(false)
     async function handleUpdate() {
         onChange(project._id, formData)
@@ -44,6 +50,7 @@ export default function ProjectItem({ project, onChange, onDelete }: ProjectItem
     }
     return (
         <div>
+            <button onClick={handleNavogate}>View task</button>
             <h2>{project.title}</h2>
             <p>{project.description}</p>
             <p>{project.dueDate && new Date(project.dueDate).toLocaleDateString()}</p>

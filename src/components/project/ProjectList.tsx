@@ -1,5 +1,5 @@
 
-import type { Project, ProjectListProps } from '../types/projectTypes'
+import type { Project, ProjectListProps } from '../../types/projectTypes'
 import ProjectItem from './projectitem'
 
 export default function ProjectList({ projects, onChange, onDelete }: ProjectListProps) {
