@@ -5,7 +5,13 @@ import { api } from "../../services/axios"
 
 export async function getTask(projectId: string): Promise<Task[]> {
     try {
-        const { data } = await api.get<Task[]>(`/projects/${projectId}/tasks`)
+        const token = await localStorage.getItem('token')
+        if (!token) throw new Error("no bearer token")
+        const { data } = await api.get<Task[]>(`/projects/${projectId}/tasks`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
         return data
     } catch (error) {
         console.error("Error fetching project tasks", error);
@@ -14,7 +20,13 @@ export async function getTask(projectId: string): Promise<Task[]> {
 }
 export async function createTask(projectId: string, taskData: CreateTaskDTO): Promise<Task> {
     try {
-        const { data } = await api.post<Task>(`/projects/${projectId}/tasks`, taskData)
+        const token = await localStorage.getItem('token')
+        if (!token) throw new Error("no bearer token")
+        const { data } = await api.post<Task>(`/projects/${projectId}/tasks`, taskData, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
         return data
     } catch (error) {
         console.error('Error creating task', error)
@@ -23,7 +35,13 @@ export async function createTask(projectId: string, taskData: CreateTaskDTO): Pr
 }
 export async function deleteTask(projectId: string, taskId: string): Promise<{ message: string }> {
     try {
-        const { data } = await api.delete<{ message: string }>(` /projects/${projectId}/tasks/${taskId}`)
+        const token = await localStorage.getItem('token')
+        if (!token) throw new Error("no bearer token")
+        const { data } = await api.delete<{ message: string }>(` /projects/${projectId}/tasks/${taskId}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
         return data
     } catch (error) {
         console.error("Problem deleting task", error)
@@ -32,7 +50,13 @@ export async function deleteTask(projectId: string, taskId: string): Promise<{ m
 }
 export async function updateTask(projectId: string, taskId: string, taskData: Partial<CreateTaskDTO>): Promise<Task> {
     try {
-        const { data } = await api.put<Task>(`/projects/${projectId}/tasks/${taskId}`, taskData)
+        const token = await localStorage.getItem('token')
+        if (!token) throw new Error("no bearer token")
+        const { data } = await api.put<Task>(`/projects/${projectId}/tasks/${taskId}`, taskData, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
         return data
     } catch (error) {
         console.error("Problem updating the task", error)

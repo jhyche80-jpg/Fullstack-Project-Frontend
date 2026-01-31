@@ -1,8 +1,8 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { type Login } from '../../types/userTypes'
 import { userLogin } from '../../utils/api/userApi'
-import type { AxiosError } from 'axios'
+
 // Accept username
 // Accept Password
 // compare password to password on file
@@ -12,21 +12,29 @@ export default function Login() {
         username: '',
         password: ''
     })
+    const [error, setError] = useState('')
     const navigate = useNavigate()
-    async function HandleSubmit() {
+    async function HandleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
+        e.preventDefault()
         try {
-            const data = await userLogin(loginInfo)
-            console.log(data)
+            const response = await userLogin(loginInfo)
+            console.log(response)
             navigate('/projects')
+            const { token, user } = await userLogin(loginInfo);
+            localStorage.setItem('token', JSON.stringify(token));
+            localStorage.setItem('user', JSON.stringify(user));
 
         } catch (error: any) {
-            console.error(error.response?.data.message)
+            const message =
+                error.response?.data?.message || error.message || 'Login failed';
+            setError(message);
         }
 
     }
 
     return (
         <form onSubmit={HandleSubmit}>
+            {error && <p style={{ color: 'red' }}>{error}</p>}
             <label htmlFor="user">Username:</label>
             <input
                 type="text"
@@ -35,7 +43,7 @@ export default function Login() {
                 onChange={(e) => setLoginInfo({ ...loginInfo, username: e.target.value })} placeholder='Username:' />
             <label htmlFor="">Password:</label>
             <input
-                type="text"
+                type="password"
                 placeholder='Password'
                 value={loginInfo.password}
                 onChange={(e) => setLoginInfo({ ...loginInfo, password: e.target.value })} />

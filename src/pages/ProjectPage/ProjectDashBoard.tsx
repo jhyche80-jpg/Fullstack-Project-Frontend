@@ -11,8 +11,15 @@ export default function ProjectDashBoard() {
     const [projects, setProjects] = useState<Project[]>([])
     useEffect(() => {
         async function FetchProjects() {
+
             try {
-                const data = await getProjects()
+                const token = await localStorage.getItem('token');
+                const userString = await localStorage.getItem("user")
+                if (!userString) return
+                if (!token) return
+                const user = JSON.parse(userString)
+
+                const data = await getProjects(token, user.id)
                 setProjects(data)
             } catch (error) {
                 console.error(error)
