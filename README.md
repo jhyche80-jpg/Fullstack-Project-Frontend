@@ -134,16 +134,16 @@ Ask yourself:
 ### Problems
 List specific problems you faced.
 
-1.  
-2.  
-3.  
+1.  I can log in but I could not make projects 
+2.  The new projects were not showing up it only showed the edit and delete 
+3.  I was getting a network error. 
 
 ### Solutions
 Explain how you solved each problem.
 
-1.  
-2.  
-3.  
+1.  I have the correct authentication middleware however I havent fully authenticated it . That being said I had to temporarily save the token to the computers local storage and then use it in the axios.ts in order to make it see the user token better . after that I changed the code to refelct that plan and it worked . I also changed some of the work in the back end to fix the code and simplify it more. 
+2.  In the post I had form data rendering as the data shared but since i was already calling project andd already drilled the project down , I decided to move the project  param in place and call the information directly from the project param. 
+3.  I changed the local host to 5000 i read online that sometimes the port can be alittle weird.
 
 ---
 

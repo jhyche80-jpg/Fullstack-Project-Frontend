@@ -44,12 +44,12 @@ export default function ProjectItem({ project, onChange, onDelete }: ProjectItem
     }
     return (
         <div>
-            <h2>{formData.title}</h2>
-            <p>{formData.description}</p>
-            <p>{formData.dueDate}</p>
-            <p>{formData.status}</p>
+            <h2>{project.title}</h2>
+            <p>{project.description}</p>
+            <p>{project.dueDate && new Date(project.dueDate).toLocaleDateString()}</p>
+            <p>{project.status}</p>
             <button onClick={() => setEditing(true)}>Edit</button>
-            <button onClick={() => onDelete(formData._id)}>Delete</button>
+            <button onClick={() => onDelete(project._id)}>Delete</button>
         </div>
     )
 }
