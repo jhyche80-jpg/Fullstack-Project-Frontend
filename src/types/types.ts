@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-export type Status = 'pending' | 'in-progress' | 'completed'
+export type Status = 'in-progress' | 'completed' | 'notStarted'
 export type TaskPrio = 'low' | 'medium' | 'high'
 
 
@@ -48,6 +48,7 @@ export interface CreateTaskDTO {
 export interface CreateTaskProps {
     tasks: Task[]
     setTasks: React.Dispatch<React.SetStateAction<Task[]>>
+    projectId: string
 }
 export interface TaskListProps {
     tasks: Task[];

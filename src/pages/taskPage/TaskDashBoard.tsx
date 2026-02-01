@@ -7,6 +7,7 @@ import CreateTask from '../../components/task/createtask'
 
 export default function TaskDashBoard() {
     const { projectId } = useParams<{ projectId: string }>()
+    if (!projectId) return
     // fetch the information 
     const [tasks, setTasks] = useState<Task[]>([])
     useEffect(() => {
@@ -36,10 +37,8 @@ export default function TaskDashBoard() {
     }
     return (
         <div>
-            <CreateTask tasks={tasks} setTasks={setTasks} />
+            <CreateTask tasks={tasks} setTasks={setTasks} projectId={projectId} />
             <TaskList tasks={tasks} onChange={HandleChange} onDelete={HandleDelete} />
-
-
         </div>
     )
 }
