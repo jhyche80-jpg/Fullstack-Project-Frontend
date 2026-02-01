@@ -51,15 +51,15 @@ export interface CreateTaskProps {
 }
 export interface TaskListProps {
     tasks: Task[];
-    onStatusChange: (taskId: string, newStatus: Status) => void;
-    onDelete: (taskId: string) => void;
+    onChange: (projectId: string, taskId: string, updatedtask: Task) => void;
+    onDelete: (projectId: string, taskId: string) => void;
 }
 
 //Task Item 
 export interface TaskItemProps {
     task: Task;
-    onStatusChange: (taskId: string, newStatus: Status) => void;
-    onDelete: (taskId: string) => void;
+    onChange: (projectId: string, taskId: string, updatedtask: Task) => void;
+    onDelete: (projectId: string, taskId: string) => void;
 
 }
 

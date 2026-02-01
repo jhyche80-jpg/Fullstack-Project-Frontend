@@ -1,10 +1,10 @@
 import React from 'react'
-import type { CreateTaskProps } from '../../types/types'
+import type { CreateTaskProps, Task } from '../../types/types'
 
-export default function createtask({ tasks, setTasks }: CreateTaskProps) {
-
+export default function CreateTask({ tasks, setTasks }: CreateTaskProps) {
     return (
         <div>
+
 
         </div>
     )

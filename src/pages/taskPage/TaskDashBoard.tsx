@@ -1,18 +1,20 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { getTask } from '../../utils/api/taskApi'
+import { getTask, updateTask } from '../../utils/api/taskApi'
 import { type Task } from '../../types/types'
+import TaskList from '../../components/task/taskList'
+import CreateTask from '../../components/task/createtask'
 
 export default function TaskDashBoard() {
     const { projectId } = useParams<{ projectId: string }>()
     // fetch the information 
-    const [task, setTask] = useState<Task[]>([])
+    const [tasks, setTasks] = useState<Task[]>([])
     useEffect(() => {
         async function fetchTask() {
             try {
                 if (!projectId) return
                 const data = await getTask(projectId)
-                setTask(data)
+                setTasks(data)
 
             } catch (error) {
                 console.error("Failed to fetch task for project:", error)
@@ -20,8 +22,23 @@ export default function TaskDashBoard() {
         }
         fetchTask()
     }, [])
+
+    async function HandleChange(projectId: string, taskId: string, taskData: Task) {
+        try {
+            const updated = await updateTask(projectId, taskId, taskData)
+            setTasks(prev => prev.map(p => (p._id === taskId ? updated : p)))
+        } catch (error) {
+
+        }
+    }
+    async function HandleDelete() {
+
+    }
     return (
         <div>
+            <CreateTask tasks={tasks} setTasks={setTasks} />
+            <TaskList tasks={tasks} onChange={HandleChange} onDelete={HandleDelete} />
+
 
         </div>
     )
