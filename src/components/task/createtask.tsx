@@ -20,16 +20,17 @@ export default function CreateTask({ setTasks, projectId }: CreateTaskProps) {
         e.preventDefault()
         try {
             const data = await createTask(projectId, formData)
+            console.log('created')
             setTasks((prev) => [...prev, data])
         } catch (error) {
             console.error('Failed to create Task', error)
         }
     }
     return (
-        <form onSubmit={() => handleSubmit}>
+        <form onSubmit={(e) => handleSubmit(e)}>
             <input type="text" name="title" value={formData.title} onChange={handleChange} />
             <textarea name="description" value={formData.description} onChange={handleChange} />
-            <input type="text" name='dueDate' value={formData.dueDate} onChange={handleChange} />
+            <input type="date" name='dueDate' value={formData.dueDate} onChange={handleChange} />
             <select name="status" id="" value={formData.status} onChange={handleChange} >
                 <option value="notStarted">Pending</option>
                 <option value="in-progress"> In progress</option>

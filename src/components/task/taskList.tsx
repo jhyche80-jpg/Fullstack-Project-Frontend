@@ -10,13 +10,13 @@ export default function TaskList({ tasks, onDelete, onChange }: TaskListProps) {
                         key={task._id}
                         onDelete={onDelete}
                         onChange={onChange}
-                        task={task} />
-
-
-
+                        task={task}
+                    />
                 })
 
             }
+
+
         </div>
     )
 }

@@ -137,6 +137,15 @@ List specific problems you faced.
 1.  I can log in but I could not make projects 
 2.  The new projects were not showing up it only showed the edit and delete 
 3.  I was getting a network error. 
+4. The task dashboard crashed 
+    - inspecting the page told me that there is  a problem with my taskList that is breaking the code
+    - When taskItem is commented out , the code works 
+    - This means taskList is braking the code 
+5. Task delete is returning a 500 status.
+    - the error mesage is currently giving me a hint ...
+    - taskApi.ts:21 DELETE http://localhost:5000/projects/[object%20Object]/tasks/697f05b… 500 (Internal Server Error)
+    - this tells me it is not recieving the parameter correctly. 
+
 
 ### Solutions
 Explain how you solved each problem.
@@ -144,6 +153,8 @@ Explain how you solved each problem.
 1.  I have the correct authentication middleware however I havent fully authenticated it . That being said I had to temporarily save the token to the computers local storage and then use it in the axios.ts in order to make it see the user token better . after that I changed the code to refelct that plan and it worked . I also changed some of the work in the back end to fix the code and simplify it more. 
 2.  In the post I had form data rendering as the data shared but since i was already calling project andd already drilled the project down , I decided to move the project  param in place and call the information directly from the project param. 
 3.  I changed the local host to 5000 I read online that sometimes the port can be alittle weird.
+4. It turns out the code backend had a slight mistake where it was rendering an array so it wouldn't fetch everything because everything needs a unique key. 
+5. Task delete is returning a 500 status.  
 
 ---
 

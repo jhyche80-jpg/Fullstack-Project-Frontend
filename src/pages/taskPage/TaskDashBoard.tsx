@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { getTask, updateTask } from '../../utils/api/taskApi'
+import { useNavigate, useParams } from 'react-router-dom'
+import { getTask, updateTask, deleteTask } from '../../utils/api/taskApi'
 import { type Task } from '../../types/types'
 import TaskList from '../../components/task/taskList'
 import CreateTask from '../../components/task/createtask'
 
 export default function TaskDashBoard() {
+    const nav = useNavigate()
     const { projectId } = useParams<{ projectId: string }>()
-    if (!projectId) return
+    if (!projectId) return null
     // fetch the information 
     const [tasks, setTasks] = useState<Task[]>([])
     useEffect(() => {
@@ -22,23 +23,30 @@ export default function TaskDashBoard() {
             }
         }
         fetchTask()
-    }, [])
+    }, [projectId])
 
     async function HandleChange(projectId: string, taskId: string, taskData: Task) {
         try {
             const updated = await updateTask(projectId, taskId, taskData)
-            setTasks(prev => prev.map(p => (p._id === taskId ? updated : p)))
+            setTasks(prev => prev.map(t => (t._id === taskId ? updated : t)))
         } catch (error) {
-
+            console.error('failed to update Task', error)
         }
     }
-    async function HandleDelete() {
-
+    async function handleDelete(projectId: string, taskId: string) {
+        try {
+            await deleteTask(projectId, taskId)
+            setTasks(prev => prev.filter(task => task._id !== taskId))
+        } catch (error) {
+            console.error('Failed to delete task:', error)
+        }
     }
     return (
         <div>
+            <button onClick={() => nav('/projects')}>Back</button>
+            hello
             <CreateTask tasks={tasks} setTasks={setTasks} projectId={projectId} />
-            <TaskList tasks={tasks} onChange={HandleChange} onDelete={HandleDelete} />
+            <TaskList tasks={tasks} onChange={HandleChange} onDelete={handleDelete} />
         </div>
     )
 }

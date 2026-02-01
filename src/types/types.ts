@@ -31,7 +31,7 @@ export interface Task {
     dueDate: string;
     user: string
     description: string;
-    project: string
+    project: string | { _id: string; title: string; description: string }
     status: Status;
     priority: TaskPrio;
 

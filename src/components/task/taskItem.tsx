@@ -2,45 +2,74 @@ import { useState } from 'react'
 import type { Status, Task, TaskItemProps, TaskPrio } from '../../types/types'
 
 export default function TaskItem({ task, onDelete, onChange }: TaskItemProps) {
-    const [formData, setFormData] = useState<Task>({
-        _id: task._id,
-        title: task.title,
-        dueDate: task.dueDate,
-        user: task.user,
-        description: task.description,
-        project: task.project,
-        status: task.status,
-        priority: task.priority
-    })
+    const [formData, setFormData] = useState<Task>({ ...task })
     const [editing, setEditing] = useState(false)
+
     if (editing) {
         return (
-            <form onSubmit={() => onChange(task.project, task._id, formData)}>
+            <form
+                onSubmit={(e) => {
+                    e.preventDefault()
+                    const projectId = typeof task.project === 'string' ? task.project : task.project._id
+                    onChange(projectId, task._id, formData)
+                    setEditing(false)
+                }}
+            >
                 <input
                     type="text"
-                    placeholder='Enter a title'
                     value={formData.title}
-                    onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                    name='title' />
+                    onChange={(e) =>
+                        setFormData({ ...formData, title: e.target.value })
+                    }
+                    placeholder="Enter a title"
+                />
+
                 <textarea
-                    placeholder='Enter description'
                     value={formData.description}
-                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                    name='description' />
-                <select name="status" id="" value={formData.status} onChange={(e) => setFormData({ ...formData, status: e.target.value as Status })}>
+                    onChange={(e) =>
+                        setFormData({ ...formData, description: e.target.value })
+                    }
+                    placeholder="Enter description"
+                />
+
+                <select
+                    value={formData.status}
+                    onChange={(e) =>
+                        setFormData({ ...formData, status: e.target.value as Status })
+                    }
+                >
                     <option value="in-progress">In progress</option>
                     <option value="completed">Completed</option>
-                    <option value="notStarted"> Not Started</option>
+                    <option value="notStarted">Not Started</option>
                 </select>
-                <label htmlFor="dueDate">Date:</label>
-                <input type="date" name='dueDate' value={formData.dueDate} onChange={(e) => setFormData({ ...formData, dueDate: e.target.value })} />
-                <select name="priority" id="" value={formData.priority} onChange={(e) => setFormData({ ...formData, priority: e.target.value as TaskPrio })}>
+
+                <label>Due Date:</label>
+                <input
+                    type="date"
+                    value={formData.dueDate ? formData.dueDate.slice(0, 10) : ''}
+                    onChange={(e) =>
+                        setFormData({
+                            ...formData,
+                            dueDate: e.target.value
+                        })
+                    }
+                />
+
+                <select
+                    value={formData.priority}
+                    onChange={(e) =>
+                        setFormData({ ...formData, priority: e.target.value as TaskPrio })
+                    }
+                >
                     <option value="low">Low</option>
                     <option value="medium">Medium</option>
-                    <option value="high">High</option>  </select>
-                <button type='submit'>Add project</button>
-                <button onClick={() => setEditing(false)}>  Cancel  </button>
+                    <option value="high">High</option>
+                </select>
 
+                <button type="submit">Save Task</button>
+                <button type="button" onClick={() => setEditing(false)}>
+                    Cancel
+                </button>
             </form>
         )
     }
@@ -52,8 +81,14 @@ export default function TaskItem({ task, onDelete, onChange }: TaskItemProps) {
             <p>{task.dueDate && new Date(task.dueDate).toLocaleDateString()}</p>
             <p>{task.status}</p>
             <p>{task.priority}</p>
+
             <button onClick={() => setEditing(true)}>Edit</button>
-            <button onClick={() => onDelete(task.project, task._id)}>Delete</button>
-        </div>
+            <button onClick={() => {
+                const projectId = typeof task.project === 'string' ? task.project : task.project._id
+                onDelete(projectId, task._id)
+            }}>
+                Delete
+            </button>
+        </div >
     )
 }
