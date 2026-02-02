@@ -9,17 +9,20 @@ function App() {
 
   return (
     <>
-      <Routes>
-        <Route path='/' element={<Login />} />
-        {/* If you cannot login register  */}
-        <Route path='/register' element={<Register />} />
-        {/*Once Logged in navigate to this page */}
-        <Route path='/projects' element={<ProjectDashBoard />} />
-        {/* clicking a specific task will cause you to navigate to that tasks for the projects */}
-        <Route path='projects/:projectId/tasks' element={<TaskDashBoard />} />
-        {/* if what i am trying to do is a no no .. */}
-        <Route path='*' element={<ErrorPage />} />
-      </Routes >
+      <div id='Main'>
+        <Routes>
+          <Route path='/' element={<Login />} />
+          {/* If you cannot login register  */}
+          <Route path='/register' element={<Register />} />
+          {/*Once Logged in navigate to this page */}
+          <Route path='/projects' element={<ProjectDashBoard />} />
+          {/* clicking a specific task will cause you to navigate to that tasks for the projects */}
+          <Route path='projects/:projectId/tasks' element={<TaskDashBoard />} />
+          {/* if what i am trying to do is a no no .. */}
+          <Route path='*' element={<ErrorPage />} />
+        </Routes >
+      </div>
+
     </>
   )
 }

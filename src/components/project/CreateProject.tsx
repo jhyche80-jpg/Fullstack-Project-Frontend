@@ -8,7 +8,7 @@ export default function CreateProject({ setProjects }: createProjectProps) {
         title: '',
         description: '',
         status: 'notStarted',
-        dueDate: '' // use string for date input
+        dueDate: ''
     });
 
     function handleChange(event: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) {
@@ -24,7 +24,7 @@ export default function CreateProject({ setProjects }: createProjectProps) {
 
         const newProject: CreateProjectDTO = {
             ...formData,
-            dueDate: formData.dueDate || undefined // keep string or undefined
+            dueDate: formData.dueDate || undefined
         };
 
         try {

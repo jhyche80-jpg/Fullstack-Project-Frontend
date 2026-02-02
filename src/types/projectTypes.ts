@@ -4,12 +4,22 @@ export type ProjectStatus = "in-progress" | "completed" | "notStarted";
 export interface Project {
     _id: string
     title: string
-    dueDate?: string | Date
+    dueDate?: string
     description: string
     status: ProjectStatus
     user: string
 
 }
+export interface PaginatedProjects {
+    data: Project[];
+    pagination: {
+        total: number;
+        page: number;
+        limit: number;
+        totalPages: number;
+    };
+}
+
 
 export interface CreateProjectDTO {
     title: string;

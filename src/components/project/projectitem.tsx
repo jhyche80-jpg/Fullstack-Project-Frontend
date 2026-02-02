@@ -3,14 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import type { Project, ProjectItem as ProjectItemType, ProjectStatus } from '../../types/projectTypes';
 
 export default function ProjectItem({ project, onChange, onDelete, setIsEditing }: ProjectItemType) {
+    // Store dueDate as string "YYYY-MM-DD"
     const [formData, setFormData] = useState<Project>({
-        _id: project._id,
-        title: project.title,
-        description: project.description,
-        status: project.status,
-        dueDate: project.dueDate ? new Date(project.dueDate).toISOString().slice(0, 10) : '',
-        user: project.user
+        ...project,
+        dueDate: project.dueDate ? project.dueDate.slice(0, 10) : '', // always string for input
     });
+
 
     const [editing, setEditing] = useState(false);
     const navigate = useNavigate();
@@ -19,11 +17,10 @@ export default function ProjectItem({ project, onChange, onDelete, setIsEditing 
 
     async function handleUpdate() {
         try {
+            // Convert to Date only for backend
             const updatedData = {
                 ...formData,
-                dueDate: formData.dueDate
-                    ? new Date(formData.dueDate + "T12:00:00")
-                    : undefined
+                dueDate: formData.dueDate ? new Date(formData.dueDate + "T12:00:00") : undefined
             };
             await onChange(project._id, updatedData);
             setEditing(false);
@@ -35,12 +32,9 @@ export default function ProjectItem({ project, onChange, onDelete, setIsEditing 
 
     function Status(status: ProjectStatus) {
         switch (status) {
-            case 'in-progress':
-                return 'In Progress';
-            case 'completed':
-                return 'Completed';
-            case 'notStarted':
-                return 'Not Started';
+            case 'in-progress': return 'In Progress';
+            case 'completed': return 'Completed';
+            case 'notStarted': return 'Not Started';
         }
     }
 
@@ -63,7 +57,7 @@ export default function ProjectItem({ project, onChange, onDelete, setIsEditing 
                 <td>
                     <input
                         type="date"
-                        value={formData.dueDate ?? ""}
+                        value={formData.dueDate}
                         onChange={e => setFormData({ ...formData, dueDate: e.target.value })}
                     />
                 </td>
@@ -81,14 +75,7 @@ export default function ProjectItem({ project, onChange, onDelete, setIsEditing 
                     <button onClick={handleUpdate}>Save</button>
                 </td>
                 <td>
-                    <button
-                        onClick={() => {
-                            setEditing(false);
-                            setIsEditing(false);
-                        }}
-                    >
-                        Cancel
-                    </button>
+                    <button onClick={() => { setEditing(false); setIsEditing(false); }}>Cancel</button>
                 </td>
             </tr>
         );
@@ -96,22 +83,13 @@ export default function ProjectItem({ project, onChange, onDelete, setIsEditing 
 
     return (
         <tr>
-            <td>
-                <button onClick={handleNavigate}>View task</button>
-            </td>
+            <td><button onClick={handleNavigate}>View task</button></td>
             <td>{project.title}</td>
             <td>{project.description}</td>
             <td>{project.dueDate ? new Date(project.dueDate).toLocaleDateString() : ''}</td>
             <td>{Status(project.status)}</td>
             <td>
-                <button
-                    onClick={() => {
-                        setEditing(true);
-                        setIsEditing(true);
-                    }}
-                >
-                    Edit
-                </button>
+                <button onClick={() => { setEditing(true); setIsEditing(true); }}>Edit</button>
             </td>
             <td>
                 <button onClick={() => onDelete(project._id)}>Delete</button>

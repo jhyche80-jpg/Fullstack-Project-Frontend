@@ -1,0 +1,20 @@
+#PDash {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    margin-top: 5%;
+
+}
+
+#ProjectChart {
+    width: 40%;
+    height: 300px;
+}
+
+#ProjectArea {
+    margin-top: 5%;
+}

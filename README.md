@@ -168,6 +168,8 @@ Debugging the task was not easy there is alot of knowledge that I am working wit
 
 Next was adding the components that track task and projects and the graphs to show project completeness. I Used older code and refactored it to complete this task. I also used react motion to better show the code and make it move and run smoothly. I also changed the way the information looks. I like structure so naturally I wanted to have a table instead of just paragraphs. I made animations for each task and project rendered and added pagination to the logic to make it look more structured so you are not doom scrolling. Additionally I added filter logic to it to make the project look better and so you can see certain things in the task . I also added logic to make the project turn a different color when the task and the whole project is complete. 
 
+My biggest problem was a problem that made me go page by page to fix the code and took almost half the day to fix. My update function was not functioning with the date . It was mainly with the way that mongoose takes the date. This specific problem led me to changing the front end and the back end. 
+
 Overall, this experience reinforced the importance of planning, understanding type systems, and thinking ahead about how changes in one part of the code can affect other parts.
 
 ---
