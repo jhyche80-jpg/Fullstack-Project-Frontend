@@ -1,41 +1,49 @@
-import { useState, useEffect } from 'react'
-import type { Project } from '../../types/projectTypes'
-import { deleteProject, getProjects, updateProject } from '../../utils/api/projectApi'
-import CreateProject from '../../components/project/CreateProject'
-import ProjectList from '../../components/project/ProjectList'
+import { useState, useEffect } from 'react';
+import type { Project, CreateProjectDTO } from '../../types/projectTypes';
+import { deleteProject, getProjects, updateProject } from '../../utils/api/projectApi';
+import CreateProject from '../../components/project/CreateProject';
+import ProjectList from '../../components/project/ProjectList';
 
 export default function ProjectDashBoard() {
-    const [projects, setProjects] = useState<Project[]>([])
+    const [projects, setProjects] = useState<Project[]>([]);
 
     useEffect(() => {
         async function fetchProjects() {
             try {
-                const data = await getProjects()
-                setProjects(data)
+                const data = await getProjects();
+                setProjects(data);
             } catch (error) {
-                console.error("Failed to fetch projects:", error)
+                console.error("Failed to fetch projects:", error);
             }
         }
-        fetchProjects()
-    }, [])
+        fetchProjects();
+    }, []);
 
     async function onDelete(projectId: string) {
         try {
-            await deleteProject(projectId)
-            setProjects(prev => prev.filter(project => project._id !== projectId))
+            await deleteProject(projectId);
+            setProjects(prev => prev.filter(p => p._id !== projectId));
         } catch (error) {
-            console.error("Failed to delete project:", error)
+            console.error("Failed to delete project:", error);
         }
     }
 
-    async function onChange(projectId: string, formData: Project) {
+    async function onChange(projectId: string, formData: Partial<CreateProjectDTO>) {
         try {
-            const updated = await updateProject(projectId, formData)
+
+            const updatedData: Partial<CreateProjectDTO> = {
+                title: formData.title,
+                description: formData.description,
+                status: formData.status,
+                dueDate: formData.dueDate || undefined
+            };
+
+            const updated = await updateProject(projectId, updatedData);
             setProjects(prev =>
                 prev.map(p => (p._id === projectId ? updated : p))
-            )
+            );
         } catch (error) {
-            console.error("Failed to update project:", error)
+            console.error('Failed to update project:', error);
         }
     }
 
@@ -44,5 +52,5 @@ export default function ProjectDashBoard() {
             <CreateProject projects={projects} setProjects={setProjects} />
             <ProjectList projects={projects} onChange={onChange} onDelete={onDelete} />
         </div>
-    )
+    );
 }

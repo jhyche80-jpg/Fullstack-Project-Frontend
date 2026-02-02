@@ -11,6 +11,7 @@ export default function TaskDashBoard() {
     if (!projectId) return null
     // fetch the information 
     const [tasks, setTasks] = useState<Task[]>([])
+    const [createTask, setCreateTask] = useState(false)
     useEffect(() => {
         async function fetchTask() {
             try {
@@ -41,12 +42,16 @@ export default function TaskDashBoard() {
             console.error('Failed to delete task:', error)
         }
     }
+
+
+
     return (
         <div>
             <button onClick={() => nav('/projects')}>Back</button>
-            hello
-            <CreateTask tasks={tasks} setTasks={setTasks} projectId={projectId} />
+
+            <button onClick={() => setCreateTask(prev => !prev)}>{createTask === false ? 'Create Task' : 'Cancel'}</button>
+            {createTask && <CreateTask tasks={tasks} setTasks={setTasks} projectId={projectId} />}
             <TaskList tasks={tasks} onChange={HandleChange} onDelete={handleDelete} />
-        </div>
+        </div >
     )
 }

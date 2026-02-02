@@ -154,7 +154,8 @@ Explain how you solved each problem.
 2.  In the post I had form data rendering as the data shared but since i was already calling project andd already drilled the project down , I decided to move the project  param in place and call the information directly from the project param. 
 3.  I changed the local host to 5000 I read online that sometimes the port can be alittle weird.
 4. It turns out the code backend had a slight mistake where it was rendering an array so it wouldn't fetch everything because everything needs a unique key. 
-5. Task delete is returning a 500 status.  
+5. This error was because of the  projectId string , from what I seen of stack overflow the back end is communicating with the front end, and sometimes it can return an obeject instead of a straight forward string. So by adding a sort of verification like ` const projectId =
+      typeof task.project === 'string' ? task.project : task.project._id` it insures that the code will read the correct string  that also lead me to update the front end task types folder . and with that final fix i made the basic Basic look.
 
 ---
 
@@ -162,6 +163,10 @@ Explain how you solved each problem.
 Reflecting on this project, I’ve learned a lot about problem-solving and debugging, especially when working with TypeScript. One lesson in particular that I’m still learning is how TypeScript’s strict typing influences code design. Changing types in my api or types file, could potentially cause issues elsewhere in the code, but this process is teaching me how to think more carefully about coding with types. I see a lot of value in this approach, as it encourages more deliberate and thoughtful programming.
 
 By the time I reached the part where I was implementing tasks, I realized I needed to restructure the code anyway because of the new logic I added in the project api. I decided to make the necessary changes before moving on to tasks. Next, I focused on creating the task handler and the task display. My plan is to design it similarly to the project dashboard and also track tasks, showing the number of completed and incomplete tasks in a separate component.
+
+Debugging the task was not easy there is alot of knowledge that I am working with and better ways to write code. My particular way left logic issues with the connection of my front end and back end. For example , `task.project` is an object and in my code i assumed that it wasnt and was just an Id for project. Needless to say it threw an error message when trying to either update or delete the task. There for I passed `task.project._id ` and added an if statement in case it is an object to make perfectly sure that the type of the thing I am looking for is a string.  
+
+Next was adding the components that track task and projects and the graphs to show project completeness. I Used older code and refactored it to complete this task. I also used react motion to better show the code and make it move and run smoothly. I also changed the way the information looks. I like structure so naturally I wanted to have a table instead of just paragraphs. I made animations for each task and project rendered and added pagination to the logic to make it look more structured so you are not doom scrolling. Additionally I added filter logic to it to make the project look better and so you can see certain things in the task . I also added logic to make the project turn a different color when the task and the whole project is complete. 
 
 Overall, this experience reinforced the importance of planning, understanding type systems, and thinking ahead about how changes in one part of the code can affect other parts.
 
@@ -181,6 +186,7 @@ Overall, this experience reinforced the importance of planning, understanding ty
 - JavaScript 
 - Browser Router 
 - Chart.js 
+- motion 
 
 ### Websites Used
 Example:  

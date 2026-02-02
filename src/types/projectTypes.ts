@@ -15,7 +15,7 @@ export interface CreateProjectDTO {
     title: string;
     description: string;
     status: ProjectStatus;
-    dueDate?: string;
+    dueDate?: string
 }
 export interface createProjectProps {
     projects: Project[]
@@ -30,6 +30,7 @@ export interface ProjectItem {
     project: Project
     onChange: (projectId: string, updatedProject: Project) => void;
     onDelete: (projectId: string) => void;
+    setIsEditing: React.Dispatch<React.SetStateAction<boolean>>
 
 }
 export interface TaskItemProps {

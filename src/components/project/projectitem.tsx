@@ -1,62 +1,121 @@
-import { useState } from 'react'
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import type { Project, ProjectItem as ProjectItemType, ProjectStatus } from '../../types/projectTypes';
 
-import { type Project, type ProjectItem, type ProjectStatus } from '../../types/projectTypes'
-import { useNavigate } from 'react-router-dom'
-export default function ProjectItem({ project, onChange, onDelete }: ProjectItem) {
+export default function ProjectItem({ project, onChange, onDelete, setIsEditing }: ProjectItemType) {
     const [formData, setFormData] = useState<Project>({
         _id: project._id,
         title: project.title,
         description: project.description,
         status: project.status,
-        dueDate: project.dueDate,
+        dueDate: project.dueDate ? new Date(project.dueDate).toISOString().slice(0, 10) : '',
         user: project.user
-    })
-    const navigate = useNavigate()
-    const handleNavogate = () => {
-        navigate(`/projects/${project._id}/tasks`)
-    }
-    const [editing, setEditing] = useState(false)
+    });
+
+    const [editing, setEditing] = useState(false);
+    const navigate = useNavigate();
+
+    const handleNavigate = () => navigate(`/projects/${project._id}/tasks`);
+
     async function handleUpdate() {
-        onChange(project._id, formData)
+        try {
+            const updatedData = {
+                ...formData,
+                dueDate: formData.dueDate
+                    ? new Date(formData.dueDate + "T12:00:00")
+                    : undefined
+            };
+            await onChange(project._id, updatedData);
+            setEditing(false);
+            setIsEditing(false);
+        } catch (error) {
+            console.error('Error updating project:', error);
+        }
     }
 
-    // two sections 
+    function Status(status: ProjectStatus) {
+        switch (status) {
+            case 'in-progress':
+                return 'In Progress';
+            case 'completed':
+                return 'Completed';
+            case 'notStarted':
+                return 'Not Started';
+        }
+    }
+
     if (editing) {
         return (
-            <form onSubmit={handleUpdate}>
-                <input
-                    type="text"
-                    placeholder='Enter a title'
-                    value={formData.title}
-                    onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                    name='title' />
-                <textarea
-                    placeholder='Enter description'
-                    value={formData.description}
-                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                    name='description' />
-                <select name="status" id="" value={formData.status} onChange={(e) => setFormData({ ...formData, status: e.target.value as ProjectStatus })}>
-                    <option value="in-progress">In progress</option>
-                    <option value="completed">Completed</option>
-                    <option value="notStarted"> Not Started</option>
-                </select>
-                <label htmlFor="dueDate">Date:</label>
-                <input type="date" name='dueDate' value={formData.dueDate} onChange={(e) => setFormData({ ...formData, dueDate: e.target.value })} />
-                <button type='submit'>Add project</button>
-                <button onClick={() => setEditing(false)}>  Cancel  </button>
-
-            </form>
-        )
+            <tr>
+                <td />
+                <td>
+                    <input
+                        value={formData.title}
+                        onChange={e => setFormData({ ...formData, title: e.target.value })}
+                    />
+                </td>
+                <td>
+                    <textarea
+                        value={formData.description}
+                        onChange={e => setFormData({ ...formData, description: e.target.value })}
+                    />
+                </td>
+                <td>
+                    <input
+                        type="date"
+                        value={formData.dueDate ?? ""}
+                        onChange={e => setFormData({ ...formData, dueDate: e.target.value })}
+                    />
+                </td>
+                <td>
+                    <select
+                        value={formData.status}
+                        onChange={e => setFormData({ ...formData, status: e.target.value as ProjectStatus })}
+                    >
+                        <option value="in-progress">In Progress</option>
+                        <option value="completed">Completed</option>
+                        <option value="notStarted">Not Started</option>
+                    </select>
+                </td>
+                <td>
+                    <button onClick={handleUpdate}>Save</button>
+                </td>
+                <td>
+                    <button
+                        onClick={() => {
+                            setEditing(false);
+                            setIsEditing(false);
+                        }}
+                    >
+                        Cancel
+                    </button>
+                </td>
+            </tr>
+        );
     }
+
     return (
-        <div>
-            <button onClick={handleNavogate}>View task</button>
-            <h2>{project.title}</h2>
-            <p>{project.description}</p>
-            <p>{project.dueDate && new Date(project.dueDate).toLocaleDateString()}</p>
-            <p>{project.status}</p>
-            <button onClick={() => setEditing(true)}>Edit</button>
-            <button onClick={() => onDelete(project._id)}>Delete</button>
-        </div>
-    )
+        <tr>
+            <td>
+                <button onClick={handleNavigate}>View task</button>
+            </td>
+            <td>{project.title}</td>
+            <td>{project.description}</td>
+            <td>{project.dueDate ? new Date(project.dueDate).toLocaleDateString() : ''}</td>
+            <td>{Status(project.status)}</td>
+            <td>
+                <button
+                    onClick={() => {
+                        setEditing(true);
+                        setIsEditing(true);
+                    }}
+                >
+                    Edit
+                </button>
+            </td>
+            <td>
+                <button onClick={() => onDelete(project._id)}>Delete</button>
+            </td>
+        </tr>
+    );
 }

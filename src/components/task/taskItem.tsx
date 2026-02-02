@@ -7,15 +7,15 @@ export default function TaskItem({ task, onDelete, onChange }: TaskItemProps) {
 
     if (editing) {
         return (
-            <form
+            <tr
                 onSubmit={(e) => {
-                    e.preventDefault()
+
                     const projectId = typeof task.project === 'string' ? task.project : task.project._id
                     onChange(projectId, task._id, formData)
                     setEditing(false)
                 }}
             >
-                <input
+                <td>  <input
                     type="text"
                     value={formData.title}
                     onChange={(e) =>
@@ -23,16 +23,15 @@ export default function TaskItem({ task, onDelete, onChange }: TaskItemProps) {
                     }
                     placeholder="Enter a title"
                 />
-
-                <textarea
+                </td>
+                <td>  <textarea
                     value={formData.description}
                     onChange={(e) =>
                         setFormData({ ...formData, description: e.target.value })
                     }
                     placeholder="Enter description"
-                />
-
-                <select
+                /></td>
+                <td><select
                     value={formData.status}
                     onChange={(e) =>
                         setFormData({ ...formData, status: e.target.value as Status })
@@ -42,9 +41,8 @@ export default function TaskItem({ task, onDelete, onChange }: TaskItemProps) {
                     <option value="completed">Completed</option>
                     <option value="notStarted">Not Started</option>
                 </select>
-
-                <label>Due Date:</label>
-                <input
+                </td>
+                <td><input
                     type="date"
                     value={formData.dueDate ? formData.dueDate.slice(0, 10) : ''}
                     onChange={(e) =>
@@ -53,9 +51,8 @@ export default function TaskItem({ task, onDelete, onChange }: TaskItemProps) {
                             dueDate: e.target.value
                         })
                     }
-                />
-
-                <select
+                /></td>
+                <td><select
                     value={formData.priority}
                     onChange={(e) =>
                         setFormData({ ...formData, priority: e.target.value as TaskPrio })
@@ -64,31 +61,32 @@ export default function TaskItem({ task, onDelete, onChange }: TaskItemProps) {
                     <option value="low">Low</option>
                     <option value="medium">Medium</option>
                     <option value="high">High</option>
-                </select>
-
-                <button type="submit">Save Task</button>
-                <button type="button" onClick={() => setEditing(false)}>
+                </select></td>
+                <td><button type="submit">Save Task</button></td>
+                <td><button type="button" onClick={() => setEditing(false)}>
                     Cancel
                 </button>
-            </form>
+                </td>
+            </tr>
         )
     }
 
     return (
-        <div>
-            <h2>{task.title}</h2>
-            <p>{task.description}</p>
-            <p>{task.dueDate && new Date(task.dueDate).toLocaleDateString()}</p>
-            <p>{task.status}</p>
-            <p>{task.priority}</p>
+        <tr>
+            <td>{task.title}</td>
+            <td>{task.description}</td>
+            <td>{task.dueDate && new Date(task.dueDate).toLocaleDateString()}</td>
+            <td>{task.status}</td>
+            <td>{task.priority}</td>
 
-            <button onClick={() => setEditing(true)}>Edit</button>
-            <button onClick={() => {
-                const projectId = typeof task.project === 'string' ? task.project : task.project._id
-                onDelete(projectId, task._id)
-            }}>
-                Delete
-            </button>
-        </div >
+            <td><button onClick={() => setEditing(true)}>Edit</button></td>
+            <td>
+                <button onClick={() => {
+                    const projectId = typeof task.project === 'string' ? task.project : task.project._id
+                    onDelete(projectId, task._id)
+                }}>
+                    Delete
+                </button></td>
+        </tr >
     )
 }
