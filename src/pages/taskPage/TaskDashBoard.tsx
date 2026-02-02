@@ -28,8 +28,16 @@ export default function TaskDashBoard() {
 
     async function HandleChange(projectId: string, taskId: string, taskData: Task) {
         try {
-            const updated = await updateTask(projectId, taskId, taskData)
+            const updatedData = {
+                title: taskData.title,
+                description: taskData.description,
+                dueDate: taskData.dueDate || undefined,
+                status: taskData.status,
+                priority: taskData.priority
+            }
+            const updated = await updateTask(projectId, taskId, updatedData)
             setTasks(prev => prev.map(t => (t._id === taskId ? updated : t)))
+
         } catch (error) {
             console.error('failed to update Task', error)
         }

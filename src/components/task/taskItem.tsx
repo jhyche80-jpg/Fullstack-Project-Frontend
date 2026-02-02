@@ -1,25 +1,60 @@
 import { useState } from 'react'
 import type { Status, Task, TaskItemProps, TaskPrio } from '../../types/types'
 
-export default function TaskItem({ task, onDelete, onChange }: TaskItemProps) {
-    const [formData, setFormData] = useState<Task>({ ...task })
+
+export default function TaskItem({ task, onDelete, onChange, setIsEditing }: TaskItemProps) {
+    const [formData, setFormData] = useState<Task>({
+        _id: task._id,
+        title: task.title,
+        description: task.description,
+        dueDate: task.dueDate ? new Date(task.dueDate).toISOString().slice(0, 10) : '',
+        status: task.status,
+        priority: task.priority,
+        user: task.user,
+        project: task.project
+
+    })
     const [editing, setEditing] = useState(false)
+    async function handleUpdate() {
+        try {
+            const updatedData = {
+                ...formData,
+                dueDate: formData.dueDate ? new Date(formData.dueDate + "T12:00:00") : null
+            };
+            const projectId = typeof task.project === 'string' ? task.project : task.project._id
+
+            await onChange(projectId, task._id, updatedData)
+            setEditing(false)
+            setIsEditing(false)
+        } catch (error) {
+            console.error('Error updating project:', error)
+        }
+    }
+    function Status(status: Status) {
+        switch (status) {
+            case 'in-progress':
+                return 'In Progress';
+            case 'completed':
+                return 'Completed';
+            case 'notStarted':
+                return 'Pending';
+        }
+    }
+    function TaskPrio(prio: TaskPrio) {
+        switch (prio) {
+            case 'high': return 'High'
+            case 'medium': return 'Medium'
+            case 'low': return "Low"
+        }
+    }
 
     if (editing) {
         return (
-            <tr
-                onSubmit={(e) => {
-
-                    const projectId = typeof task.project === 'string' ? task.project : task.project._id
-                    onChange(projectId, task._id, formData)
-                    setEditing(false)
-                }}
-            >
+            <tr>
                 <td>  <input
                     type="text"
                     value={formData.title}
-                    onChange={(e) =>
-                        setFormData({ ...formData, title: e.target.value })
+                    onChange={(e) => setFormData({ ...formData, title: e.target.value })
                     }
                     placeholder="Enter a title"
                 />
@@ -30,6 +65,16 @@ export default function TaskItem({ task, onDelete, onChange }: TaskItemProps) {
                         setFormData({ ...formData, description: e.target.value })
                     }
                     placeholder="Enter description"
+                /></td>
+                <td><input
+                    type="date"
+                    value={formData.dueDate ? formData.dueDate.slice(0, 10) : ''}
+                    onChange={(e) =>
+                        setFormData({
+                            ...formData,
+                            dueDate: e.target.value
+                        })
+                    }
                 /></td>
                 <td><select
                     value={formData.status}
@@ -42,16 +87,7 @@ export default function TaskItem({ task, onDelete, onChange }: TaskItemProps) {
                     <option value="notStarted">Not Started</option>
                 </select>
                 </td>
-                <td><input
-                    type="date"
-                    value={formData.dueDate ? formData.dueDate.slice(0, 10) : ''}
-                    onChange={(e) =>
-                        setFormData({
-                            ...formData,
-                            dueDate: e.target.value
-                        })
-                    }
-                /></td>
+
                 <td><select
                     value={formData.priority}
                     onChange={(e) =>
@@ -62,7 +98,7 @@ export default function TaskItem({ task, onDelete, onChange }: TaskItemProps) {
                     <option value="medium">Medium</option>
                     <option value="high">High</option>
                 </select></td>
-                <td><button type="submit">Save Task</button></td>
+                <td><button type="submit" onClick={handleUpdate}>Save Task</button></td>
                 <td><button type="button" onClick={() => setEditing(false)}>
                     Cancel
                 </button>
@@ -76,8 +112,8 @@ export default function TaskItem({ task, onDelete, onChange }: TaskItemProps) {
             <td>{task.title}</td>
             <td>{task.description}</td>
             <td>{task.dueDate && new Date(task.dueDate).toLocaleDateString()}</td>
-            <td>{task.status}</td>
-            <td>{task.priority}</td>
+            <td>{Status(task.status)}</td>
+            <td>{TaskPrio(task.priority)}</td>
 
             <td><button onClick={() => setEditing(true)}>Edit</button></td>
             <td>

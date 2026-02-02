@@ -61,7 +61,7 @@ export interface TaskItemProps {
     task: Task;
     onChange: (projectId: string, taskId: string, updatedtask: Task) => void;
     onDelete: (projectId: string, taskId: string) => void;
-
+    setIsEditing: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 // Task Filter 

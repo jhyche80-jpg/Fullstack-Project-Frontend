@@ -1,7 +1,9 @@
 import type { TaskListProps } from '../../types/types'
 import TaskItem from './taskItem'
 import type { Task } from '../../types/types'
+import { useState } from 'react'
 export default function TaskList({ tasks, onDelete, onChange }: TaskListProps) {
+    const [isEditing, setIsEditing] = useState(false)
     return (
         <table>
             <thead>
@@ -11,8 +13,8 @@ export default function TaskList({ tasks, onDelete, onChange }: TaskListProps) {
                     <th>Due Date </th>
                     <th>Status</th>
                     <th>priority</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
+                    <th>{isEditing ? 'Save' : 'Edit'}</th>
+                    <th>{isEditing ? "Cancel" : 'Delete'}</th>
                 </tr>
 
             </thead>
@@ -24,6 +26,7 @@ export default function TaskList({ tasks, onDelete, onChange }: TaskListProps) {
                             onDelete={onDelete}
                             onChange={onChange}
                             task={task}
+                            setIsEditing={setIsEditing}
                         />
                     })
 

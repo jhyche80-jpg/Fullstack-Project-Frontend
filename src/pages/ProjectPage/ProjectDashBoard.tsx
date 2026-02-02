@@ -50,7 +50,7 @@ export default function ProjectDashBoard() {
     return (
         <div>
             <CreateProject projects={projects} setProjects={setProjects} />
-            <ProjectList projects={projects} onChange={onChange} onDelete={onDelete} />
+            <ProjectList projects={projects} onChange={() => onChange} onDelete={onDelete} />
         </div>
     );
 }

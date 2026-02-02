@@ -4,7 +4,7 @@ export type ProjectStatus = "in-progress" | "completed" | "notStarted";
 export interface Project {
     _id: string
     title: string
-    dueDate?: string
+    dueDate?: string | Date
     description: string
     status: ProjectStatus
     user: string
@@ -38,5 +38,4 @@ export interface TaskItemProps {
     onStatusChange: (projectId: string, newStatus: ProjectStatus) => void;
     onEdit: (projectId: string, newData: CreateProjectDTO) => void
     onDelete: (projectid: string) => void;
-
 }
