@@ -20,7 +20,7 @@ export default function Register() {
         try {
             const response = await userRegister(registerInfo)
             console.log(response)
-            navigate('/login')
+            navigate('/')
         } catch (error: any) {
             const message =
                 error.response?.data?.message ||

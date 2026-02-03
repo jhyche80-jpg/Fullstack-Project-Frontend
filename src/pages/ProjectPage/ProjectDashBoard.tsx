@@ -1,15 +1,20 @@
-import { useState, useEffect } from 'react';
-import type { Project, CreateProjectDTO } from '../../types/projectTypes';
-import { deleteProject, getProjects, updateProject } from '../../utils/api/projectApi';
-import CreateProject from '../../components/project/CreateProject';
-import ProjectList from '../../components/project/ProjectList';
-import { motion } from 'motion/react';
-import { BarChart } from '../../components/Charts/charts';
-import '../../Styles/ProjectDashboard.css'
+import { useState, useEffect } from 'react'; import type { Project, CreateProjectDTO } from '../../types/projectTypes';
+import { deleteProject, getProjects, updateProject } from '../../utils/api/projectApi'; import CreateProject from '../../components/project/CreateProject';
+import ProjectList from '../../components/project/ProjectList'; import { motion } from 'motion/react';
+import { BarChart } from '../../components/Charts/charts'; import '../../Styles/ProjectDashboard.css'
+import Counter from '../../components/Counter/Counter'; import { useSave } from '../../Hooks/hooks';
+
+
 export default function ProjectDashBoard() {
     const [projects, setProjects] = useState<Project[]>([]);
-
     // const [loading, setLoading] = useState(true);
+    const [totalProjects, setTotalProjects] = useState<number>(() => {
+        const savedTotal = localStorage.getItem("totalProjects");
+        return savedTotal ? parseInt(savedTotal) : 0;
+    });
+
+    useSave("totalProjects", totalProjects)
+
     useEffect(() => {
         async function fetchProjects() {
             try {
@@ -57,33 +62,43 @@ export default function ProjectDashBoard() {
     const totalPending = projects.filter(p => p.status === "notStarted").length;
     const totalCompleted = projects.filter(p => p.status === "completed").length;
     const totalInProgress = projects.filter(p => p.status === "in-progress").length;
-    // const ProjectIntotal = totalCompleted + totalInProgress + totalPending
+    const Total = totalCompleted + totalInProgress + totalInProgress
 
     const chartLabelsBar = ["Not Started", "In Progress", "Completed"]
     const chartValuesBar = [totalPending, totalInProgress, totalCompleted]
 
-
-
-
-
     return (
-        <motion.div initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 2 }} id='PDash'>
-            <div id='ProjectChart'>
-                <BarChart labels={chartLabelsBar} values={chartValuesBar} />
-            </div>
+        <>
 
-            <div id='ProjectArea'>
-                <CreateProject projects={projects} setProjects={setProjects} />
+            <motion.div initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 2 }} id='PDash'>
+                <div>
+                    <Counter
+                        Pending={totalPending}
+                        Completed={totalCompleted}
+                        InProgress={totalInProgress}
+                        Total={Total}
+                        Name='Projects'
+                    />
 
-                <ProjectList projects={projects} onChange={onChange} onDelete={onDelete} />
+                </div>
+                <div id='ProjectChart'>
+                    <BarChart labels={chartLabelsBar} values={chartValuesBar} />
+                </div>
 
-            </div>
-            <div></div>
+                <div id='ProjectArea'>
+                    <CreateProject projects={projects} setProjects={setProjects} />
+
+                    <ProjectList projects={projects} onChange={onChange} onDelete={onDelete} />
+
+                </div>
+                <div></div>
 
 
 
-        </motion.div>
+            </motion.div>
+        </>
+
     );
 }

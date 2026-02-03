@@ -1,0 +1,43 @@
+.CreateProject {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: space-between;
+    border: solid red;
+}
+
+#sectionOne {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: start;
+}
+
+.Section {
+    display: flex;
+    flex-direction: column;
+}
+
+.Area {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: start;
+
+}
+
+#addProj {
+    margin-top: 8%;
+}
+
+#Section2 {
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+    justify-content: space-around;
+}
+
+#projectDate {
+    display: flex;
+    flex-direction: column;
+}

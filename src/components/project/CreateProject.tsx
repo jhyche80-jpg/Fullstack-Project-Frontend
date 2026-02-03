@@ -1,7 +1,7 @@
 import { useState, type ChangeEvent } from 'react';
 import type { CreateProjectDTO, createProjectProps } from '../../types/projectTypes';
 import { createProject } from '../../utils/api/projectApi';
-
+import '../../Styles/createProject.css'
 
 export default function CreateProject({ setProjects }: createProjectProps) {
     const [formData, setFormData] = useState<CreateProjectDTO>({
@@ -37,33 +37,58 @@ export default function CreateProject({ setProjects }: createProjectProps) {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <input
-                type="text"
-                placeholder='Enter a title'
-                value={formData.title}
-                onChange={handleChange}
-                name='title'
-            />
-            <textarea
-                placeholder='Enter description'
-                value={formData.description}
-                onChange={handleChange}
-                name='description'
-            />
-            <select name="status" value={formData.status} onChange={handleChange}>
-                <option value="in-progress">In progress</option>
-                <option value="completed">Completed</option>
-                <option value="notStarted">Not Started</option>
-            </select>
-            <label htmlFor="dueDate">Date:</label>
-            <input
-                type="date"
-                name='dueDate'
-                value={formData.dueDate}
-                onChange={handleChange}
-            />
-            <button type='submit'>Add project</button>
+        <form onSubmit={handleSubmit} className='CreateProject'>
+            <div className='Area' id='sectionOne'>
+                <div className='Section'>
+                    <label htmlFor="title"> <strong>Title:</strong></label>
+                    <input
+                        type="text"
+                        placeholder='Enter a title'
+                        value={formData.title}
+                        onChange={handleChange}
+                        name='title'
+                    />
+                </div>
+
+                <div className='Section'>
+                    <label htmlFor='description'>  <strong>Description:</strong></label>
+                    <textarea
+                        placeholder='Enter description'
+                        value={formData.description}
+                        onChange={handleChange}
+                        name='description'
+                    />
+                </div>
+
+            </div>
+            <div className='Area' >
+                <div className='Section'>
+                    <label htmlFor="status">Status</label>
+                    <select name="status" value={formData.status} onChange={handleChange}>
+                        <option value="in-progress">In progress</option>
+                        <option value="completed">Completed</option>
+                        <option value="notStarted">Not Started</option>
+                    </select>
+                </div>
+                <div id='Section2'>
+                    <div id='projectDate'>
+                        <label htmlFor="dueDate">Date:</label>
+                        <input
+                            type="date"
+                            name='dueDate'
+                            value={formData.dueDate}
+                            onChange={handleChange}
+
+                        />
+                    </div>
+
+                    <button type='submit' id='addProj'>Add project</button>
+                </div>
+
+            </div>
+
+
+
         </form>
     );
 }

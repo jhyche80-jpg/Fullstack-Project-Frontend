@@ -78,15 +78,13 @@ export type Filters = {
     dueDate?: string
     search?: string;
 }
-export function useSave<T>(key: string, value: T) {
-    useEffect(() => {
-        if (value === undefined) return;
 
-        const valueToStore =
-            typeof value === "object"
-                ? JSON.stringify(value)
-                : String(value);
+export interface Counter {
+    Name: string;
+    Pending: number;
+    Completed: number;
+    Total: number;
+    InProgress: number;
 
-        localStorage.setItem(key, valueToStore);
-    }, [key, value]);
 }
+
