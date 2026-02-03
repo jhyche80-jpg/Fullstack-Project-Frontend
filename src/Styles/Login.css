@@ -1,0 +1,21 @@
+.formLogin {
+    display: flex;
+    flex-direction: column;
+    background: #FC9C44;
+    width: 10%;
+    margin-top: 10%;
+    padding: 20px;
+    justify-content: start;
+    align-items: center;
+    border-radius: 20px;
+}
+
+.InputLogin {
+    width: 100%;
+}
+
+.SignInArea {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10%;
+}

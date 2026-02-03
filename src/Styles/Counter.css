@@ -7,22 +7,19 @@
 }
 
 .divs {
-
     padding: 20px;
     border-radius: 20px;
-    color: black;
     font-weight: 700;
     text-align: center;
-
 }
 
 .light .divs {
-    background: linear-gradient(45deg, #F6C992, #f0cea4);
-
+    background: #C7AC9F;
+    color: #0f172a;
 }
 
 .dark .divs {
-    background: linear-gradient(45deg, #333, #444);
+    background: #030925;
     color: white;
 }
 

@@ -40,48 +40,49 @@ export default function CreateProject({ setProjects }: createProjectProps) {
         <form onSubmit={handleSubmit} className='CreateProject'>
             <div className='Area' id='sectionOne'>
                 <div className='Section'>
-                    <label htmlFor="title"> <strong>Title:</strong></label>
-                    <input
-                        type="text"
-                        placeholder='Enter a title'
-                        value={formData.title}
-                        onChange={handleChange}
-                        name='title'
-                    />
-                </div>
+                    <div className='CreateArea' id='TitleInput'>
+                        <label htmlFor="title"> <strong>Title:</strong></label>
+                        <input
+                            type="text"
+                            placeholder='Enter a title'
+                            value={formData.title}
+                            onChange={handleChange}
+                            name='title'
+                            id='TitleInput'
+                        />
+                    </div>
+                    <div className='CreateArea' id='DescriptInput'>
+                        <label htmlFor='description'>  <strong>Description:</strong></label>
+                        <input
+                            placeholder='Enter description'
+                            value={formData.description}
+                            onChange={handleChange}
+                            name='description'
+                            max={10}
+                        />
+                    </div>
 
-                <div className='Section'>
-                    <label htmlFor='description'>  <strong>Description:</strong></label>
-                    <textarea
-                        placeholder='Enter description'
-                        value={formData.description}
-                        onChange={handleChange}
-                        name='description'
-                    />
-                </div>
 
-            </div>
-            <div className='Area' >
-                <div className='Section'>
-                    <label htmlFor="status">Status</label>
-                    <select name="status" value={formData.status} onChange={handleChange}>
-                        <option value="in-progress">In progress</option>
-                        <option value="completed">Completed</option>
-                        <option value="notStarted">Not Started</option>
-                    </select>
-                </div>
-                <div id='Section2'>
-                    <div id='projectDate'>
+
+                    <div className='CreateArea' id='statusInput'>
+
+                        <label htmlFor="status">Status</label>
+                        <select name="status" value={formData.status} onChange={handleChange}>
+                            <option value="in-progress">In progress</option>
+                            <option value="completed">Completed</option>
+                            <option value="notStarted">Not Started</option>
+                        </select>
+                    </div>
+
+                    <div className='CreateArea' id='dateInput'>
                         <label htmlFor="dueDate">Date:</label>
                         <input
                             type="date"
                             name='dueDate'
                             value={formData.dueDate}
                             onChange={handleChange}
-
                         />
                     </div>
-
                     <button type='submit' id='addProj'>Add project</button>
                 </div>
 

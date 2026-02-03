@@ -5,13 +5,25 @@
     justify-content: center;
     align-items: center;
     height: auto;
-    margin-top: 5%;
+    margin-top: 2%;
 
 }
 
 #ProjectChart {
     width: 20%;
-    height: 300px;
+    min-width: 300px;
+    height: 200px;
+    padding: 1%;
+}
+
+.light #ProjectChart {
+    background: #5C3C2C;
+    color: #1c1917;
+}
+
+.dark #ProjectChart {
+    background: #020617;
+    color: #e5e7eb;
 }
 
 #ProjectArea {

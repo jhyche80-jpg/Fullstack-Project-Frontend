@@ -13,6 +13,7 @@ export default function ProjectDashBoard() {
         return savedTotal ? parseInt(savedTotal) : 0;
     });
 
+
     useSave("totalProjects", totalProjects)
 
     useEffect(() => {
@@ -71,9 +72,14 @@ export default function ProjectDashBoard() {
         <>
 
             <motion.div initial={{ opacity: 0 }}
+
                 animate={{ opacity: 1 }}
                 transition={{ duration: 2 }} id='PDash'>
                 <div>
+                    <div>
+                        <h1>Project Manager:</h1>
+
+                    </div>
                     <Counter
                         Pending={totalPending}
                         Completed={totalCompleted}

@@ -5,11 +5,14 @@ import ErrorPage from './pages/ErrorPage/ErrorPage'
 import TaskDashBoard from './pages/taskPage/TaskDashBoard'
 import Login from './pages/Authorize/Login'
 import Register from './pages/Authorize/Register'
+import NavBar from './components/NavBar/navBar'
 function App() {
 
   return (
     <>
+
       <div id='Main'>
+        <NavBar />
         <Routes>
           <Route path='/' element={<Login />} />
           {/* If you cannot login register  */}

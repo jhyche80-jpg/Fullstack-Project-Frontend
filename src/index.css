@@ -3,8 +3,7 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
+
   margin: 0;
 
   font-synthesis: none;
@@ -20,4 +19,67 @@ body {
   min-width: 100vh;
   min-height: 100vh;
   height: auto;
+}
+
+.light {
+  background: #FBF7F2;
+  color: #3A2F28;
+}
+
+.dark {
+  background: #0E141B;
+  color: #e5e7eb;
+}
+
+.light button {
+  color: #3A2F28;
+  background: #C26D3A;
+}
+
+.light button:hover {
+  background: #A85A2C;
+}
+
+.dark button {
+  background: #16202B;
+  color: #E5E7EB;
+}
+
+.light table {
+
+  background: #FFFFFF;
+}
+
+.dark table {
+  background: #121A23;
+}
+
+tbody tr {
+  height: 60px;
+}
+
+th,
+td {
+  padding: 16px 20px;
+
+}
+
+.light tbody tr {
+  height: 60px;
+
+}
+
+.light th,
+td {
+  border: solid #E7DED4;
+  border-left: none;
+  border-right: none;
+}
+
+.light input {
+  background: #C7AC9F;
+}
+
+.light select {
+  background: #C7AC9F;
 }

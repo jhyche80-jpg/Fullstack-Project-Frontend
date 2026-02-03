@@ -1,4 +1,4 @@
-import React from 'react'
+
 import type { Counter } from '../../types/types'
 import '../../Styles/Counter.css'
 
@@ -16,7 +16,7 @@ export default function Counter({ Pending, Completed, Total, InProgress, Name }:
 
                 </div>
                 <div className='divs'>
-                    <p> {Name} In Progress:</p>
+                    <p> {Name} Not Started:</p>
                     <p>{InProgress}</p>
                 </div>
                 <div className='divs'>

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { type Login } from '../../types/userTypes'
 import { userLogin } from '../../utils/api/userApi'
-
+import '../../Styles/Login.css'
 export default function Login() {
     const [loginInfo, setLoginInfo] = useState<Login>({
         username: '',
@@ -35,28 +35,35 @@ export default function Login() {
     }
 
     return (
-        <form onSubmit={HandleSubmit}>
+        <form onSubmit={HandleSubmit} className='formLogin'>
             {error && <p style={{ color: 'red' }}>{error}</p>}
+            <div className='SignInArea'>
+                <label> <strong>Username:</strong> </label>
+                <input
+                    type="text"
+                    value={loginInfo.username}
+                    onChange={(e) =>
+                        setLoginInfo({ ...loginInfo, username: e.target.value })
+                    }
+                    placeholder="Username"
+                    className='InputLogin'
+                />
 
-            <label>Username:</label>
-            <input
-                type="text"
-                value={loginInfo.username}
-                onChange={(e) =>
-                    setLoginInfo({ ...loginInfo, username: e.target.value })
-                }
-                placeholder="Username"
-            />
+            </div>
 
-            <label>Password:</label>
-            <input
-                type="password"
-                value={loginInfo.password}
-                onChange={(e) =>
-                    setLoginInfo({ ...loginInfo, password: e.target.value })
-                }
-                placeholder="Password"
-            />
+            <div className='SignInArea'>
+                <label> <strong>Password:</strong></label>
+                <input
+                    type="password"
+                    value={loginInfo.password}
+                    onChange={(e) =>
+                        setLoginInfo({ ...loginInfo, password: e.target.value })
+                    }
+                    placeholder="Password"
+                    className='InputLogin'
+                />
+            </div>
+
 
             <button type="submit">Login</button>
 
