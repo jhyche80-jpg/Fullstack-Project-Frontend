@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import type { Status, Task, TaskItemProps, TaskPrio } from '../../types/types'
-
+import '../../Styles/Item.css'
 
 export default function TaskItem({ task, onDelete, onChange, setIsEditing }: TaskItemProps) {
     const [formData, setFormData] = useState<Task>({
@@ -47,10 +47,11 @@ export default function TaskItem({ task, onDelete, onChange, setIsEditing }: Tas
             case 'low': return "Low"
         }
     }
+    const isOverdue = task.dueDate ? new Date(task.dueDate) < new Date() && task.status !== 'completed' : false
 
     if (editing) {
         return (
-            <tr>
+            <tr className={isOverdue ? 'overDue' : 'notOverdue'}>
                 <td>  <input
                     type="text"
                     value={formData.title}
@@ -112,8 +113,8 @@ export default function TaskItem({ task, onDelete, onChange, setIsEditing }: Tas
             <td>{task.title}</td>
             <td>{task.description}</td>
             <td>{task.dueDate && new Date(task.dueDate).toLocaleDateString()}</td>
-            <td>{Status(task.status)}</td>
-            <td>{TaskPrio(task.priority)}</td>
+            <td className={task.status}>{Status(task.status)}</td>
+            <td className={task.priority}>{TaskPrio(task.priority)}</td>
 
             <td><button onClick={() => setEditing(true)}>Edit</button></td>
             <td>

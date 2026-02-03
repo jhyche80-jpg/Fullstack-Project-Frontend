@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { Project, ProjectItem as ProjectItemType, ProjectStatus } from '../../types/projectTypes';
-import '../../Styles/ProjecctItem.css'
+import '../../Styles/Item.css'
 export default function ProjectItem({ project, onChange, onDelete, setIsEditing }: ProjectItemType) {
     // Store dueDate as string "YYYY-MM-DD"
     const [formData, setFormData] = useState<Project>({

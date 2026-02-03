@@ -35,3 +35,28 @@
 .light .notStarted {
     color: #C44536;
 }
+
+.light .low {
+    color: #5A84AC;
+}
+
+.light .medium {
+    color: #FC9C44;
+}
+
+.light .high {
+    color: #742F14;
+}
+
+.dark .low {
+    color: lightblue;
+}
+
+.dark .medium {
+    color: #FC9C44;
+}
+
+.dark .high {
+    color: #fc1414;
+    font-weight: 500;
+}
