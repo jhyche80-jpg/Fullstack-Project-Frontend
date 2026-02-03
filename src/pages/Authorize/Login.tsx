@@ -18,7 +18,7 @@ export default function Login() {
     }
 
     const { toggleLogin } = loginContext
-
+    toggleLogin(false)
     async function HandleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
         try {
@@ -29,7 +29,6 @@ export default function Login() {
             }
             localStorage.setItem('token', token)
             localStorage.setItem('user', JSON.stringify(user))
-            toggleLogin()
             navigate('/projects')
         } catch (error: any) {
             const message =

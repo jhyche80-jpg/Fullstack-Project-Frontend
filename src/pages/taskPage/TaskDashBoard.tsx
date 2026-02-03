@@ -5,6 +5,7 @@ import { type Task } from '../../types/types'
 import TaskList from '../../components/task/taskList'
 import CreateTask from '../../components/task/createtask'
 
+
 export default function TaskDashBoard() {
     const nav = useNavigate()
     const { projectId } = useParams<{ projectId: string }>()
@@ -25,6 +26,8 @@ export default function TaskDashBoard() {
         }
         fetchTask()
     }, [projectId])
+
+
 
     async function HandleChange(projectId: string, taskId: string, taskData: Task) {
         try {
@@ -53,12 +56,14 @@ export default function TaskDashBoard() {
 
 
 
+
     return (
         <div>
+            <h1>Tasks:</h1>
             <button onClick={() => nav('/projects')}>Back</button>
-
             <button onClick={() => setCreateTask(prev => !prev)}>{createTask === false ? 'Create Task' : 'Cancel'}</button>
             {createTask && <CreateTask tasks={tasks} setTasks={setTasks} projectId={projectId} />}
+
             <TaskList tasks={tasks} onChange={HandleChange} onDelete={handleDelete} />
         </div >
     )

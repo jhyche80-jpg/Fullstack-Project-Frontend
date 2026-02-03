@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { Project, ProjectItem as ProjectItemType, ProjectStatus } from '../../types/projectTypes';
-
+import '../../Styles/ProjecctItem.css'
 export default function ProjectItem({ project, onChange, onDelete, setIsEditing }: ProjectItemType) {
     // Store dueDate as string "YYYY-MM-DD"
     const [formData, setFormData] = useState<Project>({
@@ -29,6 +29,9 @@ export default function ProjectItem({ project, onChange, onDelete, setIsEditing 
             console.error('Error updating project:', error);
         }
     }
+    const isOverdue = project.dueDate
+        ? new Date(project.dueDate) < new Date() && project.status !== 'completed'
+        : false;
 
     function Status(status: ProjectStatus) {
         switch (status) {
@@ -82,12 +85,12 @@ export default function ProjectItem({ project, onChange, onDelete, setIsEditing 
     }
 
     return (
-        <tr>
+        <tr className={isOverdue ? 'overDue' : 'notOverdue'}>
             <td><button onClick={handleNavigate}>View task</button></td>
             <td>{project.title}</td>
             <td>{project.description}</td>
             <td>{project.dueDate ? new Date(project.dueDate).toLocaleDateString() : ''}</td>
-            <td>{Status(project.status)}</td>
+            <td className={project.status}>{Status(project.status)}</td>
             <td>
                 <button onClick={() => { setEditing(true); setIsEditing(true); }}>Edit</button>
             </td>

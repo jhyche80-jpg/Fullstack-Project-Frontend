@@ -6,12 +6,15 @@ import TaskDashBoard from './pages/taskPage/TaskDashBoard'
 import Login from './pages/Authorize/Login'
 import Register from './pages/Authorize/Register'
 import NavBar from './components/NavBar/navBar'
+import ScrollToTop from './utils/utils/utillities'
+
 function App() {
 
   return (
     <>
 
       <div id='Main'>
+        <ScrollToTop />
         <NavBar />
         <Routes>
           <Route path='/' element={<Login />} />

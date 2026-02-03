@@ -29,7 +29,7 @@ export default function CreateTask({ setTasks, projectId }: CreateTaskProps) {
     return (
         <form onSubmit={(e) => handleSubmit(e)}>
             <input type="text" name="title" value={formData.title} onChange={handleChange} />
-            <textarea name="description" value={formData.description} onChange={handleChange} />
+            <input name="description" value={formData.description} onChange={handleChange} />
             <input type="date" name='dueDate' value={formData.dueDate} onChange={handleChange} />
             <select name="status" id="" value={formData.status} onChange={handleChange} >
                 <option value="notStarted">Pending</option>

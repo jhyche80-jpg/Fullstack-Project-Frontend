@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react'; import type { Project, CreateProjectDTO } from '../../types/projectTypes';
+import { useState, useEffect, useContext } from 'react'; import type { Project, CreateProjectDTO } from '../../types/projectTypes';
 import { deleteProject, getProjects, updateProject } from '../../utils/api/projectApi'; import CreateProject from '../../components/project/CreateProject';
 import ProjectList from '../../components/project/ProjectList'; import { motion } from 'motion/react';
 import { BarChart } from '../../components/Charts/charts'; import '../../Styles/ProjectDashboard.css'
 import Counter from '../../components/Counter/Counter'; import { useSave } from '../../Hooks/hooks';
+import { LoginContext } from '../../context/Context';
 
 
 export default function ProjectDashBoard() {
@@ -12,7 +13,13 @@ export default function ProjectDashBoard() {
         const savedTotal = localStorage.getItem("totalProjects");
         return savedTotal ? parseInt(savedTotal) : 0;
     });
+    const loginContext = useContext(LoginContext)
+    if (!loginContext) {
+        throw new Error("NavBar must be used within a LoginProvider")
+    }
 
+    const { toggleLogin } = loginContext
+    toggleLogin(true)
 
     useSave("totalProjects", totalProjects)
 

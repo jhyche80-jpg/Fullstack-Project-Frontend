@@ -4,6 +4,7 @@ import '../../Styles/navBar.css'
 import { userLogout } from "../../utils/api/userApi"
 import { useContext } from "react"
 import { LoginContext } from "../../context/Context"
+import { motion } from "motion/react"
 export default function NavBar() {
     const navigate = useNavigate()
     const loginContext = useContext(LoginContext)
@@ -18,7 +19,7 @@ export default function NavBar() {
         try {
             await userLogout()
             navigate('/')
-            toggleLogin()
+            toggleLogin(false)
 
         } catch (error) {
 
@@ -28,7 +29,11 @@ export default function NavBar() {
     }
     const { theme, toggleTheme } = useTheme()
     return (
-        <div id="NavBar">
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 2 }}
+            id="NavBar">
             <h1 id="NavTitle">Momentum</h1>
             {loggedin && <div id='ContolButton'>
                 <button onClick={HandleLogout} className='BtnMode' id="Logout">Logout </button>
@@ -36,6 +41,6 @@ export default function NavBar() {
             </div>}
 
 
-        </div>
+        </motion.div>
     )
 }

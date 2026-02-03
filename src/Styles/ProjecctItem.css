@@ -1,0 +1,37 @@
+.light .overDue {
+    background-color: bisque;
+}
+
+.dark .overDue {
+    background: grey;
+}
+
+.dark .in-progress {
+    color: #FACC15;
+
+
+}
+
+.dark .completed {
+    color: #4ADE80;
+}
+
+.dark .notStarted {
+    color: #F87171;
+}
+
+
+
+.light .in-progress {
+    color: #c98f38;
+
+
+}
+
+.light .completed {
+    color: #4C9A6A;
+}
+
+.light .notStarted {
+    color: #C44536;
+}
