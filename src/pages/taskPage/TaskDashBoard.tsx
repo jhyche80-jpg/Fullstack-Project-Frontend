@@ -4,8 +4,10 @@ import { getTask, updateTask, deleteTask } from '../../utils/api/taskApi'
 import { type Task } from '../../types/types'
 import TaskList from '../../components/task/taskList'
 import CreateTask from '../../components/task/createtask'
-
-
+import { motion } from 'motion/react'
+import Counter from '../../components/Counter/Counter'
+import { Piechart } from '../../components/Charts/charts'
+import '../../Styles/ProjectDashboard.css'
 export default function TaskDashBoard() {
     const nav = useNavigate()
     const { projectId } = useParams<{ projectId: string }>()
@@ -53,18 +55,56 @@ export default function TaskDashBoard() {
             console.error('Failed to delete task:', error)
         }
     }
+    const totalPending = tasks.filter(t => t.status === "notStarted").length;
+    const totalCompleted = tasks.filter(t => t.status === "completed").length;
+    const totalInProgress = tasks.filter(t => t.status === "in-progress").length;
 
+    const totalLow = tasks.filter(t => t.priority === "low").length;
+    const totalMedium = tasks.filter(t => t.priority === "medium").length;
+    const totalHigh = tasks.filter(t => t.priority === "high").length;
 
+    const Total = totalCompleted + totalInProgress + totalInProgress
 
+    const PiChartLable = ['Low', 'Medium', 'High']
+    const PiChartValue = [totalLow, totalMedium, totalHigh]
+
+    const chartLabelsBar = ['Total Pending', 'Total Completed', 'Total In-Progress']
+    const chartValuesBar = [totalPending, totalInProgress, totalCompleted]
 
     return (
-        <div>
+        <motion.div initial={{ opacity: 0 }}
+
+            animate={{ opacity: 1 }}
+            transition={{ duration: 2 }}
+            className='PDash' >
             <h1>Tasks:</h1>
-            <button onClick={() => nav('/projects')}>Back</button>
-            <button onClick={() => setCreateTask(prev => !prev)}>{createTask === false ? 'Create Task' : 'Cancel'}</button>
+            <Counter
+                Pending={totalPending}
+                Completed={totalCompleted}
+                InProgress={totalInProgress}
+                Total={Total}
+                Name='Tasks'
+            />
+            <div id='Chart'>
+                <div className='TaskChart'>
+                    <Piechart labels={chartLabelsBar} values={chartValuesBar} />
+
+                </div>
+                <div className='TaskChart'>
+                    <Piechart labels={PiChartLable} values={PiChartValue} />
+
+                </div>
+            </div>
+
+
+            <div>
+                <button onClick={() => nav('/projects')}>Back</button>
+                <button onClick={() => setCreateTask(prev => !prev)}>{createTask === false ? 'Create Task' : 'Cancel'}</button>
+            </div>
+
             {createTask && <CreateTask tasks={tasks} setTasks={setTasks} projectId={projectId} />}
 
             <TaskList tasks={tasks} onChange={HandleChange} onDelete={handleDelete} />
-        </div >
+        </motion.div >
     )
 }

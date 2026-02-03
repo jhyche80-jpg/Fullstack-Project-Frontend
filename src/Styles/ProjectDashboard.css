@@ -1,4 +1,4 @@
-#PDash {
+.PDash {
     display: flex;
     flex-direction: column;
     width: 90%;
@@ -16,6 +16,24 @@
     padding: 1%;
 }
 
+.TaskChart {
+    width: 20%;
+    min-width: 300px;
+    height: 250px;
+    padding: 3%;
+    display: flex;
+    justify-content: center;
+    border-radius: 20px;
+}
+
+#Chart {
+    width: 50%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
 .light #ProjectChart {
     background: #5C3C2C;
     color: #1c1917;
@@ -28,4 +46,15 @@
 
 #ProjectArea {
     margin-top: 1%;
+}
+
+
+.light .TaskChart {
+    background: #5C3C2C;
+    color: #1c1917;
+}
+
+.dark .TaskChart {
+    background: #020617;
+    color: #e5e7eb;
 }

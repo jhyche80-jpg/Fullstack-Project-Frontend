@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import type { Register } from '../../types/userTypes'
 import { userRegister } from '../../utils/api/userApi'
 import { useNavigate } from 'react-router-dom'
+import '../../Styles/Login.css'
 export default function Register() {
     const navigate = useNavigate()
     const [registerInfo, setRegesterInfo] = useState<Register>({
@@ -18,9 +19,14 @@ export default function Register() {
     async function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
         e.preventDefault()
         try {
+            if (registerInfo.password !== repassword) {
+                return setError("Passwords do not match!")
+            }
             const response = await userRegister(registerInfo)
             console.log(response)
             navigate('/')
+
+
         } catch (error: any) {
             const message =
                 error.response?.data?.message ||
@@ -31,7 +37,7 @@ export default function Register() {
     }
     return (
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className='formLogin'>
             <p>{error}</p>
             <button type="button" onClick={() => navigate(-1)}>Back</button>
             <div>
