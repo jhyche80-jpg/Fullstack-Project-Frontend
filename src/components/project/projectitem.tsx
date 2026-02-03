@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { Project, ProjectItem as ProjectItemType, ProjectStatus } from '../../types/projectTypes';
 import '../../Styles/Item.css'
+
 export default function ProjectItem({ project, onChange, onDelete, setIsEditing }: ProjectItemType) {
     // Store dueDate as string "YYYY-MM-DD"
     const [formData, setFormData] = useState<Project>({
@@ -20,8 +21,9 @@ export default function ProjectItem({ project, onChange, onDelete, setIsEditing 
             // Convert to Date only for backend
             const updatedData = {
                 ...formData,
-                dueDate: formData.dueDate ? new Date(formData.dueDate + "T12:00:00") : undefined
+                dueDate: formData.dueDate ?? new Date(formData.dueDate + "T12:00:00")
             };
+            if (!formData.dueDate) return setFormData({ ...formData, dueDate: '' })
             await onChange(project._id, updatedData);
             setEditing(false);
             setIsEditing(false);

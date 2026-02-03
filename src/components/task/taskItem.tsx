@@ -19,7 +19,7 @@ export default function TaskItem({ task, onDelete, onChange, setIsEditing }: Tas
         try {
             const updatedData = {
                 ...formData,
-                dueDate: formData.dueDate ? new Date(formData.dueDate + "T12:00:00") : null
+                dueDate: formData.dueDate ?? new Date(formData.dueDate + "T12:00:00")
             };
             const projectId = typeof task.project === 'string' ? task.project : task.project._id
 

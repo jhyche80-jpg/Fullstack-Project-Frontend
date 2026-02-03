@@ -1,4 +1,3 @@
-import { useEffect } from "react"
 export type Status = 'in-progress' | 'completed' | 'notStarted'
 export type TaskPrio = 'low' | 'medium' | 'high'
 
@@ -64,20 +63,7 @@ export interface TaskItemProps {
     setIsEditing: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-// Task Filter 
-export interface TaskFilterProps {
-    onFilterChange: (filters: {
-        status?: Status;
-        priority?: TaskPrio;
-        dueDate?: string
-    }) => void;
-}
-export type Filters = {
-    status?: Status;
-    priority?: TaskPrio;
-    dueDate?: string
-    search?: string;
-}
+
 
 export interface Counter {
     Name: string;
