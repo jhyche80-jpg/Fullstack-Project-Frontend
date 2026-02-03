@@ -1,9 +1,25 @@
 #NavBar {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     background: black;
     width: 100%;
     height: 8%;
+}
+
+#ContolButton {
+    display: flex;
+    justify-content: end;
+    margin-top: 1.5%;
+
+
+}
+
+#Logout {
+    margin-right: 2%;
+}
+
+#Switcher {
+    margin-right: 2%;
 }
 
 .light #NavBar {
@@ -20,12 +36,6 @@
 }
 
 
-#BtnMode {
-    margin-left: 35%;
-    height: 20%;
-    margin-top: 6%;
-
-}
 
 #NavTitle {
     margin-left: 50%;

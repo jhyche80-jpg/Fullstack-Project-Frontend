@@ -10,6 +10,14 @@
     border-radius: 20px;
 }
 
+.light .formLogin {
+    background: #FC9C44;
+}
+
+.dark .formLogin {
+    background: #7D7D7D;
+}
+
 .InputLogin {
     width: 100%;
 }

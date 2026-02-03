@@ -1,16 +1,18 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { type Login } from '../../types/userTypes'
 import { userLogin } from '../../utils/api/userApi'
 import '../../Styles/Login.css'
+import { LoginContext } from '../../context/Context'
 export default function Login() {
     const [loginInfo, setLoginInfo] = useState<Login>({
         username: '',
         password: ''
     })
     const [error, setError] = useState('')
+    const [login, setLogin] = useState(false)
     const navigate = useNavigate()
-
+    const { toggleLogin } = useContext(LoginContext)
     async function HandleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
 
@@ -23,7 +25,7 @@ export default function Login() {
 
             localStorage.setItem('token', token)
             localStorage.setItem('user', JSON.stringify(user))
-
+            toggleLogin()
             navigate('/projects')
         } catch (error: any) {
             const message =
