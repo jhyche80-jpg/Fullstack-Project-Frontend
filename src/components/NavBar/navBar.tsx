@@ -6,10 +6,17 @@ import { useContext } from "react"
 import { LoginContext } from "../../context/Context"
 export default function NavBar() {
     const navigate = useNavigate()
-    const { loggedin, toggleLogin } = useContext(LoginContext)
+    const loginContext = useContext(LoginContext)
+
+    if (!loginContext) {
+        throw new Error("NavBar must be used within a LoginProvider")
+    }
+
+    const { loggedin, toggleLogin } = loginContext
+
     async function HandleLogout() {
         try {
-            await userLogout
+            await userLogout()
             navigate('/')
             toggleLogin()
 

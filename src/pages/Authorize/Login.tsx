@@ -10,19 +10,23 @@ export default function Login() {
         password: ''
     })
     const [error, setError] = useState('')
-    const [login, setLogin] = useState(false)
     const navigate = useNavigate()
-    const { toggleLogin } = useContext(LoginContext)
+    const loginContext = useContext(LoginContext)
+
+    if (!loginContext) {
+        throw new Error("NavBar must be used within a LoginProvider")
+    }
+
+    const { toggleLogin } = loginContext
+
     async function HandleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
-
         try {
             const { token, user } = await userLogin(loginInfo)
             if (!token) {
                 setError('Login failed: no token returned')
                 return
             }
-
             localStorage.setItem('token', token)
             localStorage.setItem('user', JSON.stringify(user))
             toggleLogin()
