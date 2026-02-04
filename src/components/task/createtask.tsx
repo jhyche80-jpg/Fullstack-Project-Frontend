@@ -26,6 +26,13 @@ export default function CreateTask({ setTasks, projectId }: CreateTaskProps) {
         } catch (error) {
             console.error('Failed to create Task', error)
         }
+        setFormData({
+            title: '',
+            dueDate: '',
+            description: '',
+            status: 'notStarted',
+            priority: 'low',
+        })
     }
     return (
         <form onSubmit={(e) => handleSubmit(e)} className='CreateProject'>

@@ -3,6 +3,7 @@ import type { CreateProjectDTO, createProjectProps } from '../../types/projectTy
 import { createProject } from '../../utils/api/projectApi';
 import '../../Styles/createProject.css'
 
+
 export default function CreateProject({ setProjects }: createProjectProps) {
     const [formData, setFormData] = useState<CreateProjectDTO>({
         title: '',
@@ -31,9 +32,20 @@ export default function CreateProject({ setProjects }: createProjectProps) {
             const created = await createProject(newProject);
             setProjects(prev => [...prev, created]);
             setFormData({ title: '', description: '', status: 'notStarted', dueDate: '' }); // reset form
+
         } catch (error) {
             console.error('Failed to create project:', error);
         }
+
+        setFormData({
+            title: '',
+            description: '',
+            dueDate: '',
+            status: 'notStarted'
+        }
+
+
+        )
     };
 
     return (
