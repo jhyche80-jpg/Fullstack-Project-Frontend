@@ -1,7 +1,5 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import type { Project, ProjectItem as ProjectItemType, ProjectStatus } from '../../types/projectTypes';
-import '../../Styles/Item.css'
+import { useState } from 'react'; import { useNavigate } from 'react-router-dom'; import type { Project, ProjectItem as ProjectItemType, ProjectStatus } from '../../types/projectTypes';
+import '../../Styles/Item.css'; import { motion } from 'motion/react';
 
 export default function ProjectItem({ project, onChange, onDelete, setIsEditing }: ProjectItemType) {
     // Store dueDate as string "YYYY-MM-DD"
@@ -45,7 +43,7 @@ export default function ProjectItem({ project, onChange, onDelete, setIsEditing 
 
     if (editing) {
         return (
-            <tr>
+            <motion.tr initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 2 }} >
                 <td />
                 <td>
                     <input
@@ -82,7 +80,7 @@ export default function ProjectItem({ project, onChange, onDelete, setIsEditing 
                 <td>
                     <button onClick={() => { setEditing(false); setIsEditing(false); }}>Cancel</button>
                 </td>
-            </tr>
+            </motion.tr>
         );
     }
 

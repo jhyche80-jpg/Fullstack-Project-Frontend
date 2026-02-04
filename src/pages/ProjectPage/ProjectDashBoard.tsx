@@ -106,10 +106,10 @@ export default function ProjectDashBoard() {
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: createProject ? 1 : 0, y: createProject ? 0 : -20 }}
                         transition={{ duration: 0.3 }}>
-
+                        {createProject && <CreateProject projects={projects} setProjects={setProjects} />
+                        }
                     </motion.div>
-                    {createProject && <CreateProject projects={projects} setProjects={setProjects} />
-                    }
+
                     <ProjectList projects={projects} onChange={onChange} onDelete={onDelete} />
 
                 </div>
