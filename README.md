@@ -145,6 +145,9 @@ List specific problems you faced.
     - the error mesage is currently giving me a hint ...
     - taskApi.ts:21 DELETE http://localhost:5000/projects/[object%20Object]/tasks/697f05b… 500 (Internal Server Error)
     - this tells me it is not recieving the parameter correctly. 
+4. I am getting an with the message ` installHook.js:1 Cannot update a component (LoginProvider) while rendering a different component (ProjectDashBoard). To locate the bad setState() call inside ProjectDashBoard, follow the stack trace as described in https://react.dev/link/setstate-in-render overrideMethod @ installHook.js:1 toggleLogin @ loginProvider.tsx:13 ProjectDashBoard @ ProjectDashBoard.tsx:22 installHook.js:1 Cannot update a component (LoginProvider) while rendering a different component (Login). To locate the bad setState() call inside Login, follow the stack trace as described in https://react.dev/link/setstate-in-render overrideMethod @ installHook.js:1 toggleLogin @ loginProvider.tsx:13 Login @ Login.tsx:21 import React, { useContext, useState } from 'react'`
+
+
 
 
 ### Solutions
@@ -156,7 +159,7 @@ Explain how you solved each problem.
 4. It turns out the code backend had a slight mistake where it was rendering an array so it wouldn't fetch everything because everything needs a unique key. 
 5. This error was because of the  projectId string , from what I seen of stack overflow the back end is communicating with the front end, and sometimes it can return an obeject instead of a straight forward string. So by adding a sort of verification like ` const projectId =
       typeof task.project === 'string' ? task.project : task.project._id` it insures that the code will read the correct string  that also lead me to update the front end task types folder . and with that final fix i made the basic Basic look.
-
+6. I  originally had the useContext of my Login ( it tells me weather I am logged in or not) just to toggle when entering the screen during render for both components but that was wrong . React does not want me to call set state ( or any thing that can trigger it ) while another component is rendering.  So since it is really a side effect I used useEffect to make it happen there and not durnign a render. Once changing this, the error disappeared. 
 ---
 
 ## Reflection

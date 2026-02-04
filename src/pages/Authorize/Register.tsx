@@ -40,7 +40,7 @@ export default function Register() {
         <form onSubmit={handleSubmit} className='formLogin'>
             <p>{error}</p>
             <button type="button" onClick={() => navigate(-1)}>Back</button>
-            <div>
+            <div className='SignInArea'>
                 <label htmlFor="firstName">First Name:</label>
                 <input
                     type="text"
@@ -48,7 +48,7 @@ export default function Register() {
                     onChange={(e) => setRegesterInfo({ ...registerInfo, firstName: e.target.value })}
                 />
             </div>
-            <div>
+            <div className='SignInArea'>
                 <label htmlFor="lastName">Last Name:</label>
                 <input
                     type="text"
@@ -57,7 +57,7 @@ export default function Register() {
                     onChange={(e) => setRegesterInfo({ ...registerInfo, lastName: e.target.value })}
                 />
             </div>
-            <div>
+            <div className='SignInArea'>
                 <label htmlFor="username">Username:</label>
                 <input
                     type="text"
@@ -66,7 +66,7 @@ export default function Register() {
                     onChange={(e) => setRegesterInfo({ ...registerInfo, username: e.target.value })}
                 />
             </div>
-            <div>
+            <div className='SignInArea'>
                 <label htmlFor="email">Email:</label>
                 <input
                     type="text"
@@ -76,7 +76,7 @@ export default function Register() {
 
                 />
             </div>
-            <div>
+            <div className='SignInArea'>
                 <label htmlFor="password">Password:</label>
                 <input
                     type="text"
@@ -85,7 +85,7 @@ export default function Register() {
                     onChange={(e) => setRegesterInfo({ ...registerInfo, password: e.target.value })}
                 />
             </div>
-            <div>
+            <div className='SignInArea'>
 
                 <label htmlFor="repass">Re-enter Password: </label>
                 <input
@@ -97,7 +97,7 @@ export default function Register() {
                 />
             </div>
 
-            <div>
+            <div className='SignInArea'>
                 <label htmlFor="birthDate">Birthday:</label>
                 <input
                     type="date"

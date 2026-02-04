@@ -18,8 +18,12 @@ export default function ProjectDashBoard() {
         throw new Error("NavBar must be used within a LoginProvider")
     }
 
+
     const { toggleLogin } = loginContext
-    toggleLogin(true)
+    // side effects must happen in useEffect not during render
+    useEffect(() => {
+        toggleLogin(true)
+    }, [toggleLogin])
 
     useSave("totalProjects", totalProjects)
 

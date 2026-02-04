@@ -1,9 +1,7 @@
-import React, { useContext, useState } from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
-import { type Login } from '../../types/userTypes'
-import { userLogin } from '../../utils/api/userApi'
-import '../../Styles/Login.css'
-import { LoginContext } from '../../context/Context'
+import React, { useContext, useState } from 'react'; import { NavLink, useNavigate } from 'react-router-dom'
+import { type Login } from '../../types/userTypes'; import { userLogin } from '../../utils/api/userApi'
+import '../../Styles/Login.css'; import { LoginContext } from '../../context/Context'
+import { useEffect } from 'react';
 export default function Login() {
     const [loginInfo, setLoginInfo] = useState<Login>({
         username: '',
@@ -18,7 +16,9 @@ export default function Login() {
     }
 
     const { toggleLogin } = loginContext
-    toggleLogin(false)
+    useEffect(() => {
+        toggleLogin(false)
+    }, [toggleLogin])
     async function HandleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
         try {
