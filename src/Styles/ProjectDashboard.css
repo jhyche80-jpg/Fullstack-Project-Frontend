@@ -59,3 +59,25 @@
     background: #020617;
     color: #e5e7eb;
 }
+
+@media (max-width: 750px) {
+
+    .PDash {
+        margin-right: 5%;
+        align-items: start;
+    }
+
+    #ProjectChart {
+        margin-left: 35%;
+    }
+
+    #ProjectArea {
+        margin-left: 5%;
+    }
+
+    #Chart {
+        margin-left: 10%;
+
+    }
+
+}

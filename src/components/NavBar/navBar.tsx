@@ -1,9 +1,6 @@
-import { useNavigate } from "react-router-dom"
-import { useTheme } from "../../Hooks/hooks"
-import '../../Styles/navBar.css'
-import { userLogout } from "../../utils/api/userApi"
-import { useContext } from "react"
-import { LoginContext } from "../../context/Context"
+import { useNavigate } from "react-router-dom"; import { useTheme } from "../../Hooks/hooks"
+import '../../Styles/navBar.css'; import { userLogout } from "../../utils/api/userApi"
+import { useContext } from "react"; import { LoginContext } from "../../context/Context"
 import { motion } from "motion/react"
 export default function NavBar() {
     const navigate = useNavigate()
