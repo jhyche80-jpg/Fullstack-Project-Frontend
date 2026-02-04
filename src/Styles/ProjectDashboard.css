@@ -3,7 +3,8 @@
     flex-direction: column;
     width: 90%;
     justify-content: center;
-    align-items: center;
+    margin-left: 50%;
+    align-items: start;
     height: auto;
     margin-top: 2%;
 
@@ -63,7 +64,7 @@
 @media (max-width: 750px) {
 
     .PDash {
-        margin-right: 5%;
+        margin-left: 2%;
         align-items: start;
     }
 

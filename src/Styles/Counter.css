@@ -28,6 +28,8 @@
 }
 
 @media (max-width: 750px) {
+
+    .Pdash,
     h1 {
         margin-left: 10%;
     }

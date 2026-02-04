@@ -77,9 +77,20 @@ td {
 }
 
 .light input {
-  background: #C7AC9F;
+  background-color: #C7AC9F;
 }
 
 .light select {
-  background: #C7AC9F;
+  background-color: #C7AC9F;
+}
+
+
+.light input:hover {
+
+  border: solid #FC9C44
+}
+
+.light select:hover {
+
+  border: solid #FC9C44
 }
