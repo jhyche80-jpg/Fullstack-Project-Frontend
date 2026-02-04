@@ -9,7 +9,7 @@ import { LoginContext } from '../../context/Context';
 export default function ProjectDashBoard() {
     const [projects, setProjects] = useState<Project[]>([]);
     const [createProject, setCreateProject] = useState(false)
-    const [totalProjects, setTotalProjects] = useState<number>(() => {
+    const [totalProjects] = useState<number>(() => {
         const savedTotal = localStorage.getItem("totalProjects");
         return savedTotal ? parseInt(savedTotal) : 0;
     });
@@ -102,6 +102,12 @@ export default function ProjectDashBoard() {
 
                 <div id='ProjectArea'>
                     <button onClick={() => setCreateProject(prev => !prev)}>Create Task</button>
+                    <motion.div
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: createProject ? 1 : 0, y: createProject ? 0 : -20 }}
+                        transition={{ duration: 0.3 }}>
+
+                    </motion.div>
                     {createProject && <CreateProject projects={projects} setProjects={setProjects} />
                     }
                     <ProjectList projects={projects} onChange={onChange} onDelete={onDelete} />

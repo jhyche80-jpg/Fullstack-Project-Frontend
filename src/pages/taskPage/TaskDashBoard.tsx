@@ -15,6 +15,7 @@ export default function TaskDashBoard() {
     // fetch the information 
     const [tasks, setTasks] = useState<Task[]>([])
     const [createTask, setCreateTask] = useState(false)
+
     useEffect(() => {
         async function fetchTask() {
             try {
@@ -86,10 +87,10 @@ export default function TaskDashBoard() {
                 Name='Tasks'
             />
             <div id='Chart'>
-                <div className='TaskChart'>
+                {<div className='TaskChart'>
                     <Piechart labels={chartLabelsBar} values={chartValuesBar} />
 
-                </div>
+                </div>}
                 <div className='TaskChart'>
                     <Piechart labels={PiChartLable} values={PiChartValue} />
 
@@ -101,8 +102,13 @@ export default function TaskDashBoard() {
                 <button onClick={() => nav('/projects')}>Back</button>
                 <button onClick={() => setCreateTask(prev => !prev)}>{createTask === false ? 'Create Task' : 'Cancel'}</button>
             </div>
+            <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: createTask ? 1 : 0, y: createTask ? 0 : -20 }}
+                transition={{ duration: 0.3 }}>
+                {createTask && <CreateTask tasks={tasks} setTasks={setTasks} projectId={projectId} />}
+            </motion.div>
 
-            {createTask && <CreateTask tasks={tasks} setTasks={setTasks} projectId={projectId} />}
 
             <TaskList tasks={tasks} onChange={HandleChange} onDelete={handleDelete} />
         </motion.div >
